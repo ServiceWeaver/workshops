@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!--
+ Copyright 2023 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<html>
+  <head>
+    <title>Prime Factors</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1">
+    <meta charset="utf-8">
+    <style>
+      #container {
+        font-family: sans-serif;
+        max-width: 60rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        margin-bottom: 2rem;
+      }
+
+      #factors_box {
+        margin: 0.5rem;
+      }
+
+      #x {
+        font-size: 1rem;
+        width: 25ch;
+      }
+
+      #factor_button {
+        font-size: 1rem;
+      }
+
+      #chatgpt_box {
+        margin: 0.5rem;
+      }
+
+      #chatgpt_prompt {
+        width: 35ch;
+      }
+
+      .output {
+        border: 1pt solid black;
+        width: 35ch;
+        min-height: 1rem;
+        padding: 1ch;
+        margin-top: 1rem;
+        background-color: #f5f6fa;
+      }
+
+      #credits {
+        text-align: center;
+        font-size: 0.8rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1 style="text-align: center;">Prime Factors</h1>
+      <div id=content>
+        <div id="factors_box">
+          <div>
+            <input id="x" type="number" value="30" min="1"/>
+            <button id="factor_button">Factor</button>
+          </div>
+          <div id="factors" class="output"></div>
+        </div>
+        <div id="chatgpt_box">
+          <div id="chatgpt_prompt">
+            ChatGPT thinks the prime factors of <span id="chatgpt_x">30</span> are
+          </div>
+          <div id="chatgpt_factors" class="output"></div>
+        </div>
+      </div>
+      <div id="credits">
+        🧶 Brought to you by <a href="https://serviceweaver.dev/">Service Weaver</a>.
+        💻 <a href="TODO">Source Code</a>.
+      </div>
+    </div>
+
+    <script>
+      async function factor(x) {
+        const response = await fetch(`/factor?x=${x}`);
+        return await response.text();
+      }
+
+      async function chatgpt_factor(x) {
+        const response = await fetch(`/chatgpt_factor?x=${x}`);
+        return await response.text();
+      }
+
+      function main() {
+        const x = document.getElementById('x');
+        const factors = document.getElementById('factors');
+        const chatgpt_x = document.getElementById('chatgpt_x');
+        const chatgpt_factors = document.getElementById('chatgpt_factors');
+        const button = document.getElementById('factor_button');
+
+        const send_request = () => {
+          chatgpt_x.innerHTML = x.value;
+          factors.innerHTML = `Loading factors of ${x.value}...`;
+          chatgpt_factors.innerHTML = `Loading factors of ${x.value}...`;
+          factor(x.value).then((v) => {
+            try {
+              factors.innerHTML = JSON.parse(v).join(", ");
+            } catch {
+              factors.innerHTML = v
+            }
+          });
+          chatgpt_factor(x.value).then((v) => {
+            chatgpt_factors.innerHTML = v;
+          });
+        }
+
+        button.addEventListener('click', send_request);
+        x.addEventListener('keypress', (e) => {
+          if (e.key == 'Enter') {
+            send_request();
+          }
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', main);
+    </script>
+  </body>
+</html>
