@@ -58,13 +58,18 @@ func (f *factorer) Factor(ctx context.Context, x int) ([]int, error) {
 	// Compute the prime factorization.
 	var factors []int
 	original := x
-	for x >= 2 {
-		for factor := 2; factor <= x; factor++ {
-			if x%factor == 0 {
-				factors = append(factors, factor)
-				x = x / factor
-				break
-			}
+	for factor := 2; factor <= x; {
+		if x%factor == 0 {
+			factors = append(factors, factor)
+			x /= factor
+		} else {
+			factor++
+		}
+
+		// Periodically check whether ctx has been cancelled.
+		if factor%1000 == 0 && ctx.Err() != nil {
+			f.Logger().Debug("Factor cancelled", "x", x)
+			return nil, ctx.Err()
 		}
 	}
 	sort.Ints(factors)

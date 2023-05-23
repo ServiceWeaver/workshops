@@ -96,13 +96,13 @@
     </div>
 
     <script>
-      async function factor(x) {
-        const response = await fetch(`/factor?x=${x}`);
+      async function factor(x, aborter) {
+        const response = await fetch(`/factor?x=${x}`, {signal: aborter});
         return await response.text();
       }
 
-      async function chatgpt_factor(x) {
-        const response = await fetch(`/chatgpt_factor?x=${x}`);
+      async function chatgpt_factor(x, aborter) {
+        const response = await fetch(`/chatgpt_factor?x=${x}`, {signal: aborter});
         return await response.text();
       }
 
@@ -113,18 +113,29 @@
         const chatgpt_factors = document.getElementById('chatgpt_factors');
         const button = document.getElementById('factor_button');
 
+        let controller;
         const send_request = () => {
           chatgpt_x.innerHTML = x.value;
           factors.innerHTML = `Loading factors of ${x.value}...`;
           chatgpt_factors.innerHTML = `Loading factors of ${x.value}...`;
-          factor(x.value).then((v) => {
+
+          // Cancel any pending operations.
+          if (controller != undefined) {
+            controller.abort();
+          }
+          controller = new AbortController();
+
+          // Call the /factor endpoint.
+          factor(x.value, controller.signal).then((v) => {
             try {
               factors.innerHTML = JSON.parse(v).join(", ");
             } catch {
               factors.innerHTML = v
             }
           });
-          chatgpt_factor(x.value).then((v) => {
+
+          // Call the /chatgpt_factor endpoint.
+          chatgpt_factor(x.value, controller.signal).then((v) => {
             chatgpt_factors.innerHTML = v;
           });
         }
