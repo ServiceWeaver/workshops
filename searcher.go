@@ -41,6 +41,8 @@ type searcher struct {
 }
 
 func (s *searcher) Search(ctx context.Context, query string) ([]string, error) {
+	s.Logger().Debug("Search", "query", query)
+
 	// Try to get the emojis from the cache, but continue if it's not found or
 	// there is an error.
 	if emojis, err := s.cache.Get().Get(ctx, query); err != nil {
