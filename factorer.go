@@ -20,6 +20,19 @@ import (
 	"sort"
 
 	"github.com/ServiceWeaver/weaver"
+	"github.com/ServiceWeaver/weaver/metrics"
+)
+
+// Two counters that count cache hits and misses in the Factor method.
+var (
+	cacheHits = metrics.NewCounter(
+		"factor_cache_hits",
+		"Number of Factor cache hits",
+	)
+	cacheMisses = metrics.NewCounter(
+		"factor_cache_misses",
+		"Number of Factor cache misses",
+	)
 )
 
 // Factorer is a prime factorization component.
@@ -52,7 +65,10 @@ func (f *factorer) Factor(ctx context.Context, x int) ([]int, error) {
 	if factors, err := f.cache.Get().Get(ctx, x); err != nil {
 		f.Logger().Error("cache.Get", "x", x, "err", err)
 	} else if len(factors) > 0 {
+		cacheHits.Add(1)
 		return factors, nil
+	} else {
+		cacheMisses.Add(1)
 	}
 
 	// Compute the prime factorization.
