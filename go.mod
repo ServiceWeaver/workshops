@@ -3,8 +3,9 @@ module github.com/ServiceWeaver/workshops
 go 1.20
 
 require (
-	github.com/ServiceWeaver/weaver v0.12.0
+	github.com/ServiceWeaver/weaver v0.12.1-0.20230601163634-c989c90488c9
 	github.com/google/go-cmp v0.5.9
+	github.com/rivo/uniseg v0.4.4
 	github.com/sashabaranov/go-openai v1.9.4
 	go.opentelemetry.io/otel v1.16.0
 	go.opentelemetry.io/otel/trace v1.16.0

@@ -17,52 +17,73 @@
 
 <html>
   <head>
-    <title>Prime Factors</title>
-    <meta name="viewport" content="width=device-width, minimum-scale=1">
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔎</text></svg>">
+    <title>Emoji Search</title>
     <style>
       #container {
         font-family: sans-serif;
-        max-width: 60rem;
+        max-width: 40rem;
         margin-left: auto;
         margin-right: auto;
       }
 
       #content {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
         margin-bottom: 2rem;
       }
 
-      #factors_box {
-        margin: 0.5rem;
+      #search {
+        display: flex;
+        margin-bottom: 1rem;
       }
 
-      #x {
-        font-size: 1rem;
-        width: 25ch;
+      #query {
+        width: 100%;
+        font-size: 1.5rem;
+        padding: 0.5rem;
+        border: solid 1px #ccc;
+        border-radius: 12pt;
+        margin-right: 1rem;
       }
 
-      #factor_button {
-        font-size: 1rem;
-      }
-
-      #chatgpt_box {
-        margin: 0.5rem;
-      }
-
-      #chatgpt_prompt {
-        width: 35ch;
-      }
-
-      .output {
+      #emojis {
         border: 1pt solid black;
-        width: 35ch;
-        min-height: 1rem;
-        padding: 1ch;
-        margin-top: 1rem;
-        background-color: #f5f6fa;
+        font-size: 2rem;
+        min-height: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .emoji {
+        padding: 0.4rem;
+        cursor: pointer;
+      }
+
+      /* https://cssloaders.github.io/ */
+      #loader_box {
+        padding-top: 0.4rem;
+        padding-left: 0.4rem;
+        padding-right: 0.4rem;
+      }
+      .loader {
+        width: 2rem;
+        height: 2rem;
+        border: 5px solid black;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+      }
+
+      @keyframes rotation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
       }
 
       #credits {
@@ -73,20 +94,14 @@
   </head>
   <body>
     <div id="container">
-      <h1 style="text-align: center;">Prime Factors</h1>
-      <div id=content>
-        <div id="factors_box">
-          <div>
-            <input id="x" type="number" value="30" min="1"/>
-            <button id="factor_button">Factor</button>
-          </div>
-          <div id="factors" class="output"></div>
+      <div id="content">
+        <h1 style="text-align: center;">🔎 Emoji Search</h1>
+        <div id="search">
+          <input id="query" type="text" placeholder="Enter a query here"/>
+          <button id="search_button" disabled>Search</button>
         </div>
-        <div id="chatgpt_box">
-          <div id="chatgpt_prompt">
-            ChatGPT thinks the prime factors of <span id="chatgpt_x">30</span> are
-          </div>
-          <div id="chatgpt_factors" class="output"></div>
+        <div id="emojis" class="output">
+          <div id="loader_box" hidden><span class="loader"></span></div>
         </div>
       </div>
       <div id="credits">
@@ -96,55 +111,105 @@
     </div>
 
     <script>
-      async function factor(x, aborter) {
-        const response = await fetch(`/factor?x=${x}`, {signal: aborter});
-        return await response.text();
+      // strip removes all whitespace from the provided strings.
+      function strip(s) {
+        return s.replace(/\s+/g, '');
       }
 
-      async function chatgpt_factor(x, aborter) {
-        const response = await fetch(`/chatgpt_factor?x=${x}`, {signal: aborter});
-        return await response.text();
+      // emoji_span returns a freshly created span with the provided emoji as
+      // its contents. The returned span has the 'emoji' class and copies the
+      // emoji to the clipboard when clicked.
+      function emoji_span(emoji) {
+        const span = document.createElement('span');
+        span.innerText = emoji;
+        span.classList.add('emoji');
+        span.addEventListener('click', () => {
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(emoji);
+          }
+        });
+        return span;
+      }
+
+      // search queries the /{endpoint}?q={query} endpoint.
+      async function search(endpoint, query, aborter) {
+        const response = await fetch(`/${endpoint}?q=${query}`, {signal: aborter});
+        const text = await response.text();
+        if (response.ok) {
+          return text;
+        } else {
+          throw new Error(text);
+        }
       }
 
       function main() {
-        const x = document.getElementById('x');
-        x.focus();
-        const factors = document.getElementById('factors');
-        const chatgpt_x = document.getElementById('chatgpt_x');
-        const chatgpt_factors = document.getElementById('chatgpt_factors');
-        const button = document.getElementById('factor_button');
+        const query = document.getElementById('query');
+        const emojis = document.getElementById('emojis');
+        const button = document.getElementById('search_button');
+        const loader = document.getElementById('loader_box');
+        query.focus();
 
-        let controller;
-        const send_request = () => {
-          chatgpt_x.innerHTML = x.value;
-          factors.innerHTML = `Loading factors of ${x.value}...`;
-          chatgpt_factors.innerHTML = `Loading factors of ${x.value}...`;
-
+        let controller; // for cancelling pending requests
+        let pending = 0; // number of pending requests
+        const displayed = new Set(); // emojis currently shown to the user
+        const perform_search = () => {
           // Cancel any pending operations.
           if (controller != undefined) {
             controller.abort();
           }
           controller = new AbortController();
 
-          // Call the /factor endpoint.
-          factor(x.value, controller.signal).then((v) => {
-            try {
-              factors.innerHTML = JSON.parse(v).join(", ");
-            } catch {
-              factors.innerHTML = v
-            }
-          });
+          // Clear existing emojis. Be careful not to remove the loader.
+          while (emojis.children.length > 1) {
+            emojis.children[0].remove();
+          }
+          displayed.clear();
 
-          // Call the /chatgpt_factor endpoint.
-          chatgpt_factor(x.value, controller.signal).then((v) => {
-            chatgpt_factors.innerHTML = v;
-          });
+          // Perform the search.
+          for (const endpoint of ['search', 'search_chatgpt']) {
+            if (pending == 0) {
+              loader.hidden = false;
+            }
+            pending++;
+
+            search(endpoint, query.value, controller.signal).then((v) => {
+              const results = JSON.parse(v);
+              if (results == null || results.length == 0) {
+                return;
+              }
+
+              // Append results, avoiding adding duplicates.
+              for (let emoji of results) {
+                if (!displayed.has(emoji)) {
+                  displayed.add(emoji);
+                  emojis.insertBefore(emoji_span(emoji), loader);
+                }
+              }
+            }).finally(() => {
+              pending--;
+              if (pending == 0) {
+                loader.hidden = true;
+              }
+            });
+          }
         }
 
-        button.addEventListener('click', send_request);
-        x.addEventListener('keypress', (e) => {
-          if (e.key == 'Enter') {
-            send_request();
+        // Perform a query when the "Search" button is clicked.
+        button.addEventListener('click', perform_search);
+
+        // Perform a query when the user hits the "Enter" key.
+        query.addEventListener('keypress', (e) => {
+          if (e.key == 'Enter' && strip(query.value) != "") {
+            perform_search();
+          }
+        });
+
+        // Disable the "Search" button when the query is empty.
+        query.addEventListener('input', (e) => {
+          if (strip(query.value) == "") {
+            button.disabled = true;
+          } else {
+            button.disabled = false;
           }
         });
       }
