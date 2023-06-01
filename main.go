@@ -21,14 +21,12 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/ServiceWeaver/weaver"
 )
 
 var (
-	// The address on which the HTTP server serves locally. 12347 is prime ;)
-	localAddress = flag.String("address", "localhost:12347", "Local server address")
+	localAddress = flag.String("address", ":9000", "Local server address")
 
 	//go:embed index.html
 	indexHtml string // index.html served on "/"
@@ -36,7 +34,7 @@ var (
 
 func main() {
 	flag.Parse()
-	if err := weaver.Run(context.Background(), serve); err != nil {
+	if err := weaver.Run(context.Background()); err != nil {
 		panic(err)
 	}
 }
@@ -44,77 +42,50 @@ func main() {
 // app is the main component of our application.
 type app struct {
 	weaver.Implements[weaver.Main]
-	factorer weaver.Ref[Factorer]
+	searcher weaver.Ref[Searcher]
 	chatgpt  weaver.Ref[ChatGPT]
 }
 
-// serve serves HTTP traffic for the main component.
-func serve(ctx context.Context, app *app) error {
+// Main implements the application main.
+func (a *app) Main(ctx context.Context) error {
 	opts := weaver.ListenerOptions{LocalAddress: *localAddress}
-	lis, err := app.Listener("primes", opts)
+	lis, err := a.Listener("emojis", opts)
 	if err != nil {
 		return err
 	}
-	app.Logger().Info("Primes listener available.", "addr", lis)
+	a.Logger().Info("emojis listener available.", "addr", lis)
 
-	http.HandleFunc("/", app.handleRoot)
-	http.HandleFunc("/factor", app.handleFactor)
-	http.HandleFunc("/chatgpt_factor", app.handleChatGPTFactor)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			http.NotFound(w, r)
+			return
+		}
+		fmt.Fprint(w, indexHtml)
+	})
+	http.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
+		a.handleSearch(a.searcher.Get().Search, w, r)
+	})
+	http.HandleFunc("/search_chatgpt", func(w http.ResponseWriter, r *http.Request) {
+		a.handleSearch(a.searcher.Get().SearchChatGPT, w, r)
+	})
 	return http.Serve(lis, nil)
 }
 
-// handleRoot handles HTTP requests to the / endpoint.
-func (a *app) handleRoot(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
-		return
-	}
-	fmt.Fprint(w, indexHtml)
-}
-
-// handleFactor handles HTTP requests to the /factor?x=<number> endpoint.
-func (a *app) handleFactor(w http.ResponseWriter, r *http.Request) {
-	// Parse GET request query parameter x.
-	s := r.URL.Query().Get("x")
-	x, err := strconv.Atoi(s)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	// Compute the prime factorization of x.
-	factors, err := a.factorer.Get().Factor(r.Context(), x)
+// handleSearch handles HTTP requests to the /search?q=<query> and
+// /search_chatgpt?q=<query> endpoints.
+func (a *app) handleSearch(search func(context.Context, string) ([]string, error), w http.ResponseWriter, r *http.Request) {
+	// Search for the list of matching emojis.
+	emojis, err := search(r.Context(), r.URL.Query().Get("q"))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	// Return the JSON serialized factorization.
-	bytes, err := json.Marshal(factors)
+	// JSON serialize the results.
+	bytes, err := json.Marshal(emojis)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	fmt.Fprintln(w, string(bytes))
-}
-
-// handleChatGPTFactor handles HTTP requests to the /chatgpt_factor?x=<number>
-// endpoint.
-func (a *app) handleChatGPTFactor(w http.ResponseWriter, r *http.Request) {
-	// Parse GET request query parameter x.
-	s := r.URL.Query().Get("x")
-	x, err := strconv.Atoi(s)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	// Query ChatGPT via the ChatGPT component.
-	prompt := fmt.Sprintf("The prime factors of %d are", x)
-	response, err := a.chatgpt.Get().Complete(r.Context(), prompt)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	fmt.Fprintln(w, response)
 }
