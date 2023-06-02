@@ -20,7 +20,7 @@ type Cache interface {
 <details>
 <summary>Solution.</summary>
 
-TODO(mwhittaker): Embed solution here.
+https://github.com/ServiceWeaver/workshops/blob/e9c0573de0f20fca6a88106ad9f25fddf2f04233/07/cache.go#L15-L60
 </details>
 
 Next, update your `Searcher` component to use the cache. When the `Search`
@@ -32,7 +32,9 @@ them in the cache by calling `Put`.
 <details>
 <summary>Solution.</summary>
 
-TODO(mwhittaker): Embed solution here.
+https://github.com/ServiceWeaver/workshops/blob/e9c0573de0f20fca6a88106ad9f25fddf2f04233/07/searcher.go#L35
+https://github.com/ServiceWeaver/workshops/blob/e9c0573de0f20fca6a88106ad9f25fddf2f04233/07/searcher.go#L41-L47
+https://github.com/ServiceWeaver/workshops/blob/e9c0573de0f20fca6a88106ad9f25fddf2f04233/07/searcher.go#L69-L72
 </details>
 
 Because our basic search algorithm is already quite fast, it's hard to notice

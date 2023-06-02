@@ -10,7 +10,7 @@ the address it is listening on.
 <details>
 <summary>Solution.</summary>
 
-TODO(mwhittaker): Embed solution here.
+https://github.com/ServiceWeaver/workshops/blob/e9c0573de0f20fca6a88106ad9f25fddf2f04233/04/main.go#L44-L49
 </details>
 
 Next, inside of the `Main` method, implement an HTTP handler for the `/search`
@@ -24,7 +24,7 @@ handler you just implemented.
 <details>
 <summary>Solution.</summary>
 
-TODO(mwhittaker): Embed solution here.
+https://github.com/ServiceWeaver/workshops/blob/e9c0573de0f20fca6a88106ad9f25fddf2f04233/04/main.go#L58-L74
 </details>
 
 Finally, run your application. It should block serving traffic.
