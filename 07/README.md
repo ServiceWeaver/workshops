@@ -25,9 +25,9 @@ TODO(mwhittaker): Embed solution here.
 
 Next, update your `Searcher` component to use the cache. When the `Search`
 method is called on a `query`, it should first see if the matching emojis for
-`query` are in the cache. If they are, `Search` should return the emojis
-immediately. Otherwise, `Search` should find the emojis and store them in the
-cache.
+`query` are in the cache by calling `Get`. If they are, `Search` should return
+the emojis immediately. Otherwise, `Search` should find the emojis and store
+them in the cache by calling `Put`.
 
 <details>
 <summary>Solution.</summary>
@@ -48,20 +48,20 @@ $ weaver generate .
 $ go run .
 ```
 
-In a separate terminal, curl the application with query `"rock"`.
+In a separate terminal, curl the application with query `"pig"`.
 
 ```
-$ curl localhost:9000/search?q=rock
-["☘️","🚀","🪨"]
+$ curl localhost:9000/search?q=pig
+["🐖","🐷","🐽"]
 ```
 
-Your application should return `["☘️","🚀","🪨"]` after a one second delay. Then,
-re-run the same curl command. This time, the request should return nearly
-instantly, as the results of query `"rock"` are now in the cache.
+Your application should return `["🐖","🐷","🐽"]` after a one second delay.
+Then, re-run the same curl command. This time, the request should return nearly
+instantly, as the results of query `"pig"` are now in the cache.
 
 ```
-$ curl localhost:9000/search?q=rock
-["☘️","🚀","🪨"]
+$ curl localhost:9000/search?q=pig
+["🐖","🐷","🐽"]
 ```
 
 Now, run your application using `weaver multi deploy`:
@@ -72,17 +72,17 @@ $ weaver multi deploy config.toml
 ```
 
 And again in a separate terminal, repeatedly curl the application with query
-`"rock"`:
+`"pig"`:
 
 ```
-$ curl localhost:9000/search?q=rock
-["☘️","🚀","🪨"]
-$ curl localhost:9000/search?q=rock
-["☘️","🚀","🪨"]
-$ curl localhost:9000/search?q=rock
-["☘️","🚀","🪨"]
-$ curl localhost:9000/search?q=rock
-["☘️","🚀","🪨"]
+$ curl localhost:9000/search?q=pig
+["🐖","🐷","🐽"]
+$ curl localhost:9000/search?q=pig
+["🐖","🐷","🐽"]
+$ curl localhost:9000/search?q=pig
+["🐖","🐷","🐽"]
+$ curl localhost:9000/search?q=pig
+["🐖","🐷","🐽"]
 ```
 
 Surprisingly, every request is slow! Add some logs to the `Get` and `Put`
@@ -93,34 +93,34 @@ surprising behavior is happening.
 <summary>Solution.</summary>
 
 Here are the logs produced by our application after curling it four times with
-query `"rock"`:
+query `"pig"`:
 
 ```
-emojis.Searcher a3b14619 searcher.go:53] Search query="rock"
-emojis.Cache    7545ca78 cache.go:51   ] Get query="rock"
-emojis.Cache    ef518f6b cache.go:58   ] Put query="rock"
-emojis.Searcher a3b14619 searcher.go:53] Search query="rock"
-emojis.Cache    7545ca78 cache.go:51   ] Get query="rock"
-emojis.Cache    ef518f6b cache.go:58   ] Put query="rock"
-emojis.Searcher 7ed120c4 searcher.go:53] Search query="rock"
-emojis.Cache    7545ca78 cache.go:51   ] Get query="rock"
-emojis.Cache    ef518f6b cache.go:58   ] Put query="rock"
-emojis.Searcher a3b14619 searcher.go:53] Search query="rock"
-emojis.Cache    7545ca78 cache.go:51   ] Get query="rock"
-emojis.Cache    ef518f6b cache.go:58   ] Put query="rock"
+emojis.Searcher a3b14619 searcher.go:53] Search query="pig"
+emojis.Cache    7545ca78 cache.go:51   ] Get query="pig"
+emojis.Cache    ef518f6b cache.go:58   ] Put query="pig"
+emojis.Searcher a3b14619 searcher.go:53] Search query="pig"
+emojis.Cache    7545ca78 cache.go:51   ] Get query="pig"
+emojis.Cache    ef518f6b cache.go:58   ] Put query="pig"
+emojis.Searcher 7ed120c4 searcher.go:53] Search query="pig"
+emojis.Cache    7545ca78 cache.go:51   ] Get query="pig"
+emojis.Cache    ef518f6b cache.go:58   ] Put query="pig"
+emojis.Searcher a3b14619 searcher.go:53] Search query="pig"
+emojis.Cache    7545ca78 cache.go:51   ] Get query="pig"
+emojis.Cache    ef518f6b cache.go:58   ] Put query="pig"
 ```
 
 You'll notice that there are two replicas of the `Cache` component: `7545ca78`
 and `ef518f6b`. Method calls to the `Cache` component are being routed round
 robin across these two replicas.
 
-When `Search` is first called on `"rock"`, it calls `Get` to see if the matching
+When `Search` is first called on `"pig"`, it calls `Get` to see if the matching
 emojis are in the cache. This `Get` is routed to replica `7545ca78`. The emojis
 are not in replica `7545ca78`'s cache, so `Search` computes the matching emojis
 and stores them in the cache by calling `Put`. This `Put` is routed to the other
 replica, `ef518f6b`, where the emojis are stored in the cache.
 
-When we call `Search` on `"rock"` again, it again calls `Get` to see if the
+When we call `Search` on `"pig"` again, it again calls `Get` to see if the
 matching emojis are in the cache, and this `Get` is again routed to replica
 `7545ca78`. The emojis have been cached at replica `ef518f6b` but not at replica
 `7545ca78`, so `Search` computes the emojis and stores them in the cache by

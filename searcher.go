@@ -9,6 +9,7 @@ import (
 	"github.com/ServiceWeaver/weaver"
 	"github.com/ServiceWeaver/weaver/metrics"
 	"github.com/rivo/uniseg"
+	"golang.org/x/exp/slices"
 )
 
 // Two counters that count cache hits and misses in the Search method.
@@ -57,13 +58,12 @@ func (s *searcher) Search(ctx context.Context, query string) ([]string, error) {
 	// Perform the search. First, we lowercase the query and split it into
 	// words. For example, the query "Black cat" is tokenized to the words
 	// "black" and "cat". Then, we say an emoji matches a query if every word
-	// in the query is a substring of at least one of the emoji's labels.
+	// in the query is one of the emoji's labels.
 	//
 	// For example, the cat emoji has labels ["animal", "cat"]. It does NOT
-	// match the "Black cat" query because "black" is not a substring of either
-	// "animal" or "cat". The black cat emoji, on the other hand, has labels
-	// ["animal", "black", "cat"] and therefore does match the query "Black
-	// cat".
+	// match the "Black cat" query because "black" is not a label. The black
+	// cat emoji, on the other hand, has labels ["animal", "black", "cat"] and
+	// therefore does match the query "Black cat".
 	//
 	// We iterate over all emojis and return the ones that match the query.
 	words := strings.Fields(strings.ToLower(query))
@@ -83,26 +83,14 @@ func (s *searcher) Search(ctx context.Context, query string) ([]string, error) {
 	return results, nil
 }
 
-// matches returns whether all of the provided words are a substring of at
-// least one of the provided labels.
+// matches returns whether words is a subset of labels.
 func matches(labels []string, words []string) bool {
 	for _, word := range words {
-		if !matchesWord(labels, word) {
+		if !slices.Contains(labels, word) {
 			return false
 		}
 	}
 	return true
-}
-
-// matchesWord returns whether the provided word is a substring of at least one
-// of the provided labels.
-func matchesWord(labels []string, word string) bool {
-	for _, label := range labels {
-		if strings.Contains(label, word) {
-			return true
-		}
-	}
-	return false
 }
 
 func (s *searcher) SearchChatGPT(ctx context.Context, query string) ([]string, error) {
