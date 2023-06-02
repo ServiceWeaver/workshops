@@ -117,7 +117,7 @@ http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 Re-run your application and open `localhost:9000` in a browser. You should see
 the following web UI.
 
-TODO(mwhittaker): Insert a video demo of the frontend.
+[Emoji Search Demo No ChatGPT.webm](https://github.com/ServiceWeaver/workshops/assets/3654277/70995e37-1fe7-4ac7-bd6b-812237061cc1)
 
 [**:arrow_left: Previous Part**](../03)
 &nbsp;&nbsp;&nbsp;:black_circle:&nbsp;&nbsp;&nbsp;
