@@ -18,22 +18,16 @@ import (
 	"context"
 	_ "embed"
 	"encoding/json"
-	"flag"
 	"fmt"
 	"net/http"
 
 	"github.com/ServiceWeaver/weaver"
 )
 
-var (
-	localAddress = flag.String("address", ":9000", "Local server address")
-
-	//go:embed index.html
-	indexHtml string // index.html served on "/"
-)
+//go:embed index.html
+var indexHtml string // index.html served on "/"
 
 func main() {
-	flag.Parse()
 	if err := weaver.Run(context.Background()); err != nil {
 		panic(err)
 	}
@@ -43,12 +37,11 @@ func main() {
 type app struct {
 	weaver.Implements[weaver.Main]
 	searcher weaver.Ref[Searcher]
-	chatgpt  weaver.Ref[ChatGPT]
 }
 
 // Main implements the application main.
 func (a *app) Main(ctx context.Context) error {
-	opts := weaver.ListenerOptions{LocalAddress: *localAddress}
+	opts := weaver.ListenerOptions{LocalAddress: "localhost:9000"}
 	lis, err := a.Listener("emojis", opts)
 	if err != nil {
 		return err

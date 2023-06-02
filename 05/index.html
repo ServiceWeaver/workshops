@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!--
+ Copyright 2023 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔎</text></svg>">
+    <title>Emoji Search</title>
+    <style>
+      #container {
+        font-family: sans-serif;
+        max-width: 40rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #content {
+        margin-bottom: 2rem;
+      }
+
+      #search {
+        display: flex;
+        margin-bottom: 1rem;
+      }
+
+      #query {
+        width: 100%;
+        font-size: 1.5rem;
+        padding: 0.5rem;
+        border: solid 1px #ccc;
+        border-radius: 12pt;
+        margin-right: 1rem;
+      }
+
+      #emojis {
+        border: 1pt solid black;
+        font-size: 2rem;
+        min-height: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .emoji {
+        padding: 0.4rem;
+        cursor: pointer;
+      }
+
+      /* https://cssloaders.github.io/ */
+      #loader_box {
+        padding-top: 0.4rem;
+        padding-left: 0.4rem;
+        padding-right: 0.4rem;
+      }
+      .loader {
+        width: 2rem;
+        height: 2rem;
+        border: 5px solid black;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+      }
+
+      @keyframes rotation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      #credits {
+        text-align: center;
+        font-size: 0.8rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="content">
+        <h1 style="text-align: center;">🔎 Emoji Search</h1>
+        <div id="search">
+          <input id="query" type="text" placeholder="Enter a query here"/>
+          <button id="search_button" disabled>Search</button>
+        </div>
+        <div id="emojis" class="output">
+          <div id="loader_box" hidden><span class="loader"></span></div>
+        </div>
+      </div>
+      <div id="credits">
+        🧶 Brought to you by <a href="https://serviceweaver.dev/">Service Weaver</a>.
+        💻 <a href="https://github.com/ServiceWeaver/workshops">Source Code</a>.
+      </div>
+    </div>
+
+    <script>
+      // strip removes all whitespace from the provided strings.
+      function strip(s) {
+        return s.replace(/\s+/g, '');
+      }
+
+      // emoji_span returns a freshly created span with the provided emoji as
+      // its contents. The returned span has the 'emoji' class and copies the
+      // emoji to the clipboard when clicked.
+      function emoji_span(emoji) {
+        const span = document.createElement('span');
+        span.innerText = emoji;
+        span.classList.add('emoji');
+        span.addEventListener('click', () => {
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(emoji);
+          }
+        });
+        return span;
+      }
+
+      // search queries the /{endpoint}?q={query} endpoint.
+      async function search(endpoint, query, aborter) {
+        const response = await fetch(`/${endpoint}?q=${query}`, {signal: aborter});
+        const text = await response.text();
+        if (response.ok) {
+          return text;
+        } else {
+          throw new Error(text);
+        }
+      }
+
+      function main() {
+        const query = document.getElementById('query');
+        const emojis = document.getElementById('emojis');
+        const button = document.getElementById('search_button');
+        const loader = document.getElementById('loader_box');
+        query.focus();
+
+        let controller; // for cancelling pending requests
+        let pending = 0; // number of pending requests
+        const displayed = new Set(); // emojis currently shown to the user
+        const perform_search = () => {
+          // Cancel any pending operations.
+          if (controller != undefined) {
+            controller.abort();
+          }
+          controller = new AbortController();
+
+          // Clear existing emojis. Be careful not to remove the loader.
+          while (emojis.children.length > 1) {
+            emojis.children[0].remove();
+          }
+          displayed.clear();
+
+          // Perform the search.
+          for (const endpoint of ['search', 'search_chatgpt']) {
+            if (pending == 0) {
+              loader.hidden = false;
+            }
+            pending++;
+
+            search(endpoint, query.value, controller.signal).then((v) => {
+              const results = JSON.parse(v);
+              if (results == null || results.length == 0) {
+                return;
+              }
+
+              // Append results, avoiding adding duplicates.
+              for (let emoji of results) {
+                if (!displayed.has(emoji)) {
+                  displayed.add(emoji);
+                  emojis.insertBefore(emoji_span(emoji), loader);
+                }
+              }
+            }).finally(() => {
+              pending--;
+              if (pending == 0) {
+                loader.hidden = true;
+              }
+            });
+          }
+        }
+
+        // Perform a query when the "Search" button is clicked.
+        button.addEventListener('click', perform_search);
+
+        // Perform a query when the user hits the "Enter" key.
+        query.addEventListener('keypress', (e) => {
+          if (e.key == 'Enter' && strip(query.value) != "") {
+            perform_search();
+          }
+        });
+
+        // Disable the "Search" button when the query is empty.
+        query.addEventListener('input', (e) => {
+          if (strip(query.value) == "") {
+            button.disabled = true;
+          } else {
+            button.disabled = false;
+          }
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', main);
+    </script>
+  </body>
+</html>
