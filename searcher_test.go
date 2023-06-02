@@ -30,8 +30,8 @@ func TestSearch(t *testing.T) {
 	}
 
 	for _, test := range []test{
-		{"rock", []string{"☘️", "🚀", "🪨"}},
-		{"RoCk", []string{"☘️", "🚀", "🪨"}},
+		{"pig", []string{"🐖", "🐷", "🐽"}},
+		{"PiG", []string{"🐖", "🐷", "🐽"}},
 		{"black cat", []string{"🐈\u200d⬛"}},
 		{"foo bar baz", nil},
 	} {

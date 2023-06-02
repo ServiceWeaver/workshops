@@ -32,31 +32,31 @@ $ weaver multi deploy config.toml
 And again in a separate terminal, repeatedly curl the application.
 
 ```
-$ curl localhost:9000/search?q=rock
-["☘️","🚀","🪨"]
-$ curl localhost:9000/search?q=rock
-["☘️","🚀","🪨"]
-$ curl localhost:9000/search?q=rock
-["☘️","🚀","🪨"]
-$ curl localhost:9000/search?q=rock
-["☘️","🚀","🪨"]
+$ curl localhost:9000/search?q=pig
+["🐖","🐷","🐽"]
+$ curl localhost:9000/search?q=pig
+["🐖","🐷","🐽"]
+$ curl localhost:9000/search?q=pig
+["🐖","🐷","🐽"]
+$ curl localhost:9000/search?q=pig
+["🐖","🐷","🐽"]
 ```
 
 The first request should be slow, but all subsequent requests should complete
 nearly instantly. If you look at your application logs, you can confirm that
-`Get` and `Put` requests for the same query are routed to the same `Cache`
-replica. Here are the logs for the `/search?q=rock` requests above:
+`Get` and `Put` requests for the query `"pig"` are routed to the same `Cache`
+replica. Here are the logs for the `/search?q=pig` requests above:
 
 ```
-emojis.Searcher 1da63c0a searcher.go:53] Search query="rock"
-emojis.Cache    e1ef982f cache.go:51   ] Get query="rock"
-emojis.Cache    e1ef982f cache.go:58   ] Put query="rock"
-emojis.Searcher 2dc51d83 searcher.go:53] Search query="rock"
-emojis.Cache    e1ef982f cache.go:51   ] Get query="rock"
-emojis.Searcher 1da63c0a searcher.go:53] Search query="rock"
-emojis.Cache    e1ef982f cache.go:51   ] Get query="rock"
-emojis.Searcher 2dc51d83 searcher.go:53] Search query="rock"
-emojis.Cache    e1ef982f cache.go:51   ] Get query="rock"
+emojis.Searcher 1da63c0a searcher.go:53] Search query="pig"
+emojis.Cache    e1ef982f cache.go:51   ] Get query="pig"
+emojis.Cache    e1ef982f cache.go:58   ] Put query="pig"
+emojis.Searcher 2dc51d83 searcher.go:53] Search query="pig"
+emojis.Cache    e1ef982f cache.go:51   ] Get query="pig"
+emojis.Searcher 1da63c0a searcher.go:53] Search query="pig"
+emojis.Cache    e1ef982f cache.go:51   ] Get query="pig"
+emojis.Searcher 2dc51d83 searcher.go:53] Search query="pig"
+emojis.Cache    e1ef982f cache.go:51   ] Get query="pig"
 ```
 
 Notice that every `Get` and `Put` is routed to replica `e1ef982f`. At this

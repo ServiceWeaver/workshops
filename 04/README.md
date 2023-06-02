@@ -17,7 +17,7 @@ Next, inside of the `Main` method, implement an HTTP handler for the `/search`
 endpoint. The endpoint receives GET requests of the form `/search?q=<query>` and
 returns the JSON serialized list of emojis that match the query
 ([`json.Marshal`](https://pkg.go.dev/encoding/json#Marshal)). For example, `curl
-localhost:9000/search?q=rock` should return `["☘️","🚀","🪨"]`. At the end of the
+localhost:9000/search?q=pig` should return `["🐖","🐷","🐽"]`. At the end of the
 `Main` method, call [`http.Serve`][http.Serve] to serve HTTP traffic using the
 handler you just implemented.
 
@@ -36,18 +36,18 @@ $ go run .
 In a separate terminal, curl the `/search` endpoint:
 
 ```
-$ curl localhost:9000/search?q=rock
-["☘️","🚀","🪨"]
-$ curl localhost:9000/search?q=dog
-["🌭","🐕","🐕‍🦺","🐶","🦮"]
-$ curl localhost:9000/search?red%20fruit
-["🍎"]
+$ curl localhost:9000/search?q=pig
+["🐖","🐷","🐽"]
+$ curl localhost:9000/search?q=cow
+["🐄","🐮"]
+$ curl localhost:9000/search?baby%bird
+["🐤","🐥"]
 ```
 
 If you do not have `curl` installed on your machine or if your terminal does not
 render emojis well, you can instead use a web browser. If you visit
-`localhost:9000/search?q=rock`, for example, you should see a page with
-`["☘️","🚀","🪨"]` as its contents.
+`localhost:9000/search?q=pig`, for example, you should see a page with
+`["🐖","🐷","🐽"]` as its contents.
 
 While your application is running, run `weaver single status` to see information
 about the application.
