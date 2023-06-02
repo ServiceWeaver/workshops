@@ -1,7 +1,7 @@
 [serviceweaver]
-binary = "./workshops"
+binary = "./emojis"
 
-["github.com/ServiceWeaver/workshops/ChatGPT"]
+["emojis/ChatGPT"]
 # Paste your OpenAI API key here. You can generate an API key at
 # https://platform.openai.com/account/api-keys. Be careful not to push your API
 # key to GitHub.
