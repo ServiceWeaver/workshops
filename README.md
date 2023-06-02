@@ -3,7 +3,7 @@
 In this workshop, you'll implement an emoji search engine as a [Service
 Weaver][serviceweaver] application.
 
-TODO(mwhittaker): Insert video of application here.
+[emoji_search_demo.webm](https://github.com/ServiceWeaver/workshops/assets/3654277/cde50b36-7808-4c26-983d-54a37532e69a)
 
 This workshop will introduce you to the fundamental concepts of Service Weaver
 including components, listeners, logging, metrics, and more. It will also give
