@@ -63,7 +63,7 @@ instantly, as the results of query `"pig"` are now in the cache.
 
 ```
 $ curl localhost:9000/search?q=pig
-["🐖","🐷","🐽"]
+["🐖","🐗","🐷","🐽"]
 ```
 
 Now, run your application using `weaver multi deploy`:
@@ -78,13 +78,13 @@ And again in a separate terminal, repeatedly curl the application with query
 
 ```
 $ curl localhost:9000/search?q=pig
-["🐖","🐷","🐽"]
+["🐖","🐗","🐷","🐽"]
 $ curl localhost:9000/search?q=pig
-["🐖","🐷","🐽"]
+["🐖","🐗","🐷","🐽"]
 $ curl localhost:9000/search?q=pig
-["🐖","🐷","🐽"]
+["🐖","🐗","🐷","🐽"]
 $ curl localhost:9000/search?q=pig
-["🐖","🐷","🐽"]
+["🐖","🐗","🐷","🐽"]
 ```
 
 Surprisingly, every request is slow! Add some logs to the `Get` and `Put`

@@ -44,11 +44,11 @@ Finally, run your application.
 ```
 $ weaver generate .
 $ go run .
-[🐖 🐷 🐽]
+[🐖 🐗 🐷 🐽]
 ```
 
-The `"pig"` query matches the pig emoji 🐖, the pig face emoji 🐷, and the pig
-nose emoji 🐽.
+The `"pig"` query matches the pig emoji 🐖, the boar emoji 🐗, the pig face
+emoji 🐷, and the pig nose emoji 🐽.
 
 Note that you'll have to run `weaver generate` whenever you add a component,
 remove a component, or change the interface of a component. If your application

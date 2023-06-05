@@ -4,8 +4,8 @@ In this part, you will write a unit test for the `Searcher` component. Review
 [the documentation on testing][testing]. Then, in a file called
 `searcher_test.go`, write a couple unit tests for the `Search` method.
 
-- The query `"pig"` should return 🐖, 🐷, and 🐽.
-- The query `"PiG"` should return 🐖, 🐷, and 🐽.
+- The query `"pig"` should return 🐖, 🐗, 🐷, and 🐽.
+- The query `"PiG"` should return 🐖, 🐗, 🐷, and 🐽.
 - The query `"black cat"` should return 🐈‍⬛.
 - The query `"foo bar baz"` should return `nil`.
 
