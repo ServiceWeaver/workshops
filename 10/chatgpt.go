@@ -19,26 +19,7 @@ import (
 	"fmt"
 
 	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/metrics"
 	openai "github.com/sashabaranov/go-openai"
-)
-
-// Token related metrics. See [1] for more information on ChatGPT tokens.
-//
-// [1]: https://platform.openai.com/docs/introduction/tokens
-var (
-	promptTokens = metrics.NewCounter(
-		"weaver_workshop_chatgpt_prompt_tokens",
-		"Number of prompt tokens.",
-	)
-	completionTokens = metrics.NewCounter(
-		"weaver_workshop_chatgpt_completion_tokens",
-		"Number of completion tokens.",
-	)
-	totalTokens = metrics.NewCounter(
-		"weaver_workshop_chatgpt_total_tokens",
-		"Number of total tokens (prompt and completion).",
-	)
 )
 
 // ChatGPT is a frontend to OpenAI's ChatGPT API.
@@ -78,11 +59,6 @@ func (gpt *chatgpt) Complete(ctx context.Context, prompt string) (string, error)
 	if err != nil {
 		return "", fmt.Errorf("ChatGPT completion error: %w", err)
 	}
-
-	// Update token metrics.
-	promptTokens.Add(float64(resp.Usage.PromptTokens))
-	completionTokens.Add(float64(resp.Usage.CompletionTokens))
-	totalTokens.Add(float64(resp.Usage.TotalTokens))
 
 	// Return the completion.
 	return resp.Choices[0].Message.Content, nil
