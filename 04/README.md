@@ -37,17 +37,17 @@ In a separate terminal, curl the `/search` endpoint:
 
 ```
 $ curl localhost:9000/search?q=pig
-["🐖","🐷","🐽"]
+["🐖","🐗","🐷","🐽"]
 $ curl localhost:9000/search?q=cow
 ["🐄","🐮"]
-$ curl localhost:9000/search?baby%bird
-["🐤","🐥"]
+$ curl localhost:9000/search?baby%20bird
+["🐣","🐤","🐥"]
 ```
 
 If you do not have `curl` installed on your machine or if your terminal does not
 render emojis well, you can instead use a web browser. If you visit
 `localhost:9000/search?q=pig`, for example, you should see a page with
-`["🐖","🐷","🐽"]` as its contents.
+`["🐖","🐗","🐷","🐽"]` as its contents.
 
 While your application is running, run `weaver single status` to see information
 about the application.
