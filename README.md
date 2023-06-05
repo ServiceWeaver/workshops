@@ -9,13 +9,14 @@ This workshop will introduce you to the fundamental concepts of Service Weaver
 including components, listeners, logging, metrics, and more. It will also give
 you the experience of writing Service Weaver applications from scratch.
 
+## Parts
+
 The workshop is divided into ten parts. Each part has instructions for you to
 follow as well as full solutions you can reference. If you're participating in
 an in-person workshop, don't hesitate to ask your instructor for help. If you're
 following along online, feel free to open an issue or ask a question on our
-[Discord](https://discord.gg/FzbQ3SM8R5).
-
-Note that this workshop assumes you're running on Linux or MacOS.
+[Discord](https://discord.gg/FzbQ3SM8R5). Note that this workshop assumes you're
+running on Linux or MacOS.
 
 1. [Hello, World!](01/)
 2. [A Search Component](02/)
@@ -27,5 +28,11 @@ Note that this workshop assumes you're running on Linux or MacOS.
 8. [Routing the Cache](08/)
 9. [Metrics](09/)
 10. [ChatGPT](10/)
+
+## Wrapping Up
+
+Thank you for participating in the Service Weaver workshop! Please use [this
+feedback form](https://forms.gle/19DLJCKcTiYmSa1v7) to let us know what you
+thought.
 
 [serviceweaver]: https://serviceweaver.dev/
