@@ -53,7 +53,8 @@ func (a *app) Main(ctx context.Context) error {
 	})
 	http.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
 		// Search for the list of matching emojis.
-		emojis, err := a.searcher.Get().Search(r.Context(), r.URL.Query().Get("q"))
+		query := r.URL.Query().Get("q")
+		emojis, err := a.searcher.Get().Search(r.Context(), query)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return

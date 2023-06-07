@@ -64,7 +64,8 @@ func (a *app) Main(ctx context.Context) error {
 // /search_chatgpt?q=<query> endpoints.
 func (a *app) handleSearch(search func(context.Context, string) ([]string, error), w http.ResponseWriter, r *http.Request) {
 	// Search for the list of matching emojis.
-	emojis, err := search(r.Context(), r.URL.Query().Get("q"))
+	query := r.URL.Query().Get("q")
+	emojis, err := a.searcher.Get().Search(r.Context(), query)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

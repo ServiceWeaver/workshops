@@ -60,7 +60,7 @@ func (s *searcher) Search(ctx context.Context, query string) ([]string, error) {
 }
 
 // matches returns whether words is a subset of labels.
-func matches(labels []string, words []string) bool {
+func matches(labels, words []string) bool {
 	for _, word := range words {
 		if !slices.Contains(labels, word) {
 			return false
