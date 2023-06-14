@@ -1,16 +1,24 @@
 # Multiprocess Execution
 
 In this part, you'll deploy your application across multiple processes. Review
-[the documentation on multiprocess execution][multiprocess]. Create a config
-file called `config.toml` with the following contents.
+[the documentation on multiprocess execution][multiprocess]. Update the
+`config.toml` config file with the following contents.
 
 ```toml
 [serviceweaver]
 binary = "./emojis"
+
+[single]
+listeners.emojis = {address = "localhost:9000"}
+
+[multi]
+listeners.emojis = {address = "localhost:9000"}
 ```
 
-This config file specifies the binary of your Service Weaver application. Next,
-build and run your app using `weaver multi deploy`.
+This config file specifies the binary of your Service Weaver application and
+specifies the address for the `emojis` listener for single process and
+multiprocess deployments. Next, build and run your app using `weaver multi
+deploy`.
 
 ```
 $ go build .

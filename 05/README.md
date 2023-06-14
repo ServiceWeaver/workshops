@@ -13,7 +13,7 @@ https://github.com/ServiceWeaver/workshops/blob/e9c0573de0f20fca6a88106ad9f25fdd
 Re-run your application.
 
 ```
-go run .
+$ SERVICEWEAVER_CONFIG=config.toml go run .
 ```
 
 In a separate terminal, curl the application a couple of times:

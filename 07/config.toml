@@ -1,2 +1,8 @@
 [serviceweaver]
 binary = "./emojis"
+
+[single]
+listeners.emojis = {address = "localhost:9000"}
+
+[multi]
+listeners.emojis = {address = "localhost:9000"}

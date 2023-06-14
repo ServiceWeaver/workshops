@@ -1,6 +1,12 @@
 [serviceweaver]
 binary = "./emojis"
 
+[single]
+listeners.emojis = {address = "localhost:9000"}
+
+[multi]
+listeners.emojis = {address = "localhost:9000"}
+
 ["emojis/ChatGPT"]
 # Paste your OpenAI API key here. You can generate an API key at
 # https://platform.openai.com/account/api-keys. Be careful not to push your API

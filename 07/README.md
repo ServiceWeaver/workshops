@@ -47,7 +47,7 @@ Now, run your application using `go run .` (don't use `weaver multi deploy`).
 
 ```
 $ weaver generate .
-$ go run .
+$ SERVICEWEAVER_CONFIG=config.toml go run .
 ```
 
 In a separate terminal, curl the application with query `"pig"`.
