@@ -37,16 +37,12 @@ func main() {
 type app struct {
 	weaver.Implements[weaver.Main]
 	searcher weaver.Ref[Searcher]
+	lis      weaver.Listener `weaver:"emojis"`
 }
 
 // Main implements the application main.
 func (a *app) Main(ctx context.Context) error {
-	opts := weaver.ListenerOptions{LocalAddress: "localhost:9000"}
-	lis, err := a.Listener("emojis", opts)
-	if err != nil {
-		return err
-	}
-	a.Logger().Info("emojis listener available.", "addr", lis)
+	a.Logger().Info("emojis listener available.", "addr", a.lis)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
@@ -71,5 +67,5 @@ func (a *app) Main(ctx context.Context) error {
 		}
 		fmt.Fprintln(w, string(bytes))
 	})
-	return http.Serve(lis, nil)
+	return http.Serve(a.lis, nil)
 }

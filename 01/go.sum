@@ -3,8 +3,8 @@ github.com/BurntSushi/toml v1.2.0/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbi
 github.com/DataDog/hyperloglog v0.0.0-20220214164406-974598347557 h1:t+/ZxFkPEVJYvbKbk4suUhKFuCy3C8rg3tuP6Oj/Zyk=
 github.com/DataDog/hyperloglog v0.0.0-20220214164406-974598347557/go.mod h1:hFPkswc42pKhRbeKDKXy05mRi7J1kJ2vMNbvd9erH0M=
 github.com/DataDog/mmh3 v0.0.0-20210722141835-012dc69a9e49 h1:EbzDX8HPk5uE2FsJYxD74QmMw0/3CqSKhEr6teh0ncQ=
-github.com/ServiceWeaver/weaver v0.13.0 h1:ZRLXRxIUNhVjZMTz+4J1hlJkq7+eu8a2aV6t3k8THkU=
-github.com/ServiceWeaver/weaver v0.13.0/go.mod h1:zvziH3h+Blab1yppwDsmaZks2Zd5C3/YmSNs6LCODSY=
+github.com/ServiceWeaver/weaver v0.15.0 h1:i+EjyL9tX1olsNIB7/RpQJbEm/0oj+XybKT1ClCrPF4=
+github.com/ServiceWeaver/weaver v0.15.0/go.mod h1:zvziH3h+Blab1yppwDsmaZks2Zd5C3/YmSNs6LCODSY=
 github.com/antlr/antlr4/runtime/Go/antlr v0.0.0-20220418222510-f25a4f6275ed h1:ue9pVfIcP+QMEjfgo/Ez4ZjNZfonGgR6NgjMaJMu1Cg=
 github.com/antlr/antlr4/runtime/Go/antlr v0.0.0-20220418222510-f25a4f6275ed/go.mod h1:F7bn7fEU90QkQ3tnmaTx3LTKLEDqnwWODIYppRQ5hnY=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

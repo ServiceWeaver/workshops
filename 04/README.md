@@ -2,15 +2,14 @@
 
 In this part, you will implement an HTTP server as a frontend to your
 application. Review [the documentation on listeners][listeners]. First, update
-the `Main` method in `main.go` to get a listener called `"emojis"`. Use a
-[`weaver.ListenerOptions`][ListenerOptions] with `LocalAddress` set to
-`"localhost:9000"`. We recommend you print out the listener to remind yourself
-the address it is listening on.
+your struct that implements the `Main` component to include a `weaver.Listener`
+called `"emojis"`. We recommend you print out the listener in your `Main` method
+to show the address the listener is listening on.
 
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/e9c0573de0f20fca6a88106ad9f25fddf2f04233/04/main.go#L44-L49
+https://github.com/ServiceWeaver/workshops/blob/TODO/04/main.go#L36-L45
 </details>
 
 Next, inside of the `Main` method, implement an HTTP handler for the `/search`
@@ -24,13 +23,23 @@ handler you just implemented.
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/e9c0573de0f20fca6a88106ad9f25fddf2f04233/04/main.go#L58-L74
+https://github.com/ServiceWeaver/workshops/blob/TODO/04/main.go#L43-L71
 </details>
 
-Finally, run your application. It should block serving traffic.
+Next, create a config file called `config.toml` with the following contents to
+configure the address of the listener.
+
+```toml
+[single]
+listeners.emojis = {address = "localhost:9000"}
+```
+
+Finally, run your application. You can provide the config file using the
+`SERVICEWEAVER_CONFIG` environment variable. Your application should block
+serving traffic.
 
 ```
-$ go run .
+$ SERVICEWEAVER_CONFIG=config.toml go run .
 ```
 
 In a separate terminal, curl the `/search` endpoint:
