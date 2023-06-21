@@ -28,7 +28,7 @@ import (
 var indexHtml string // index.html served on "/"
 
 func main() {
-	if err := weaver.Run(context.Background()); err != nil {
+	if err := weaver.Run(context.Background(), run); err != nil {
 		panic(err)
 	}
 }
@@ -40,8 +40,8 @@ type app struct {
 	lis      weaver.Listener `weaver:"emojis"`
 }
 
-// Main implements the application main.
-func (a *app) Main(ctx context.Context) error {
+// run implements the application main.
+func run(ctx context.Context, a *app) error {
 	a.Logger().Info("emojis listener available.", "addr", a.lis)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

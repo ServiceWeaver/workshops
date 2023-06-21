@@ -3,8 +3,8 @@
 In this part, you will implement an HTTP server as a frontend to your
 application. Review [the documentation on listeners][listeners]. First, update
 your struct that implements the `Main` component to include a `weaver.Listener`
-called `"emojis"`. We recommend you print out the listener in your `Main` method
-to show the address the listener is listening on.
+called `"emojis"`. We recommend you print out the listener to show the address
+the listener is listening on.
 
 <details>
 <summary>Solution.</summary>
@@ -12,13 +12,13 @@ to show the address the listener is listening on.
 https://github.com/ServiceWeaver/workshops/blob/TODO/04/main.go#L36-L45
 </details>
 
-Next, inside of the `Main` method, implement an HTTP handler for the `/search`
-endpoint. The endpoint receives GET requests of the form `/search?q=<query>` and
-returns the JSON serialized list of emojis that match the query
-([`json.Marshal`](https://pkg.go.dev/encoding/json#Marshal)). For example, `curl
-localhost:9000/search?q=pig` should return `["🐖","🐷","🐽"]`. At the end of the
-`Main` method, call [`http.Serve`][http.Serve] to serve HTTP traffic using the
-handler you just implemented.
+Next, inside of the function you pass to `weaver.Run`, implement an HTTP handler
+for the `/search` endpoint. The endpoint receives GET requests of the form
+`/search?q=<query>` and returns the JSON serialized list of emojis that match
+the query ([`json.Marshal`](https://pkg.go.dev/encoding/json#Marshal)). For
+example, `curl localhost:9000/search?q=pig` should return `["🐖","🐷","🐽"]`. At
+the end of the function, call [`http.Serve`][http.Serve] to serve HTTP traffic
+using the handler you just implemented.
 
 <details>
 <summary>Solution.</summary>
