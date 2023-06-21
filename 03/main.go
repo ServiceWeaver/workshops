@@ -22,7 +22,7 @@ import (
 )
 
 func main() {
-	if err := weaver.Run(context.Background()); err != nil {
+	if err := weaver.Run(context.Background(), run); err != nil {
 		panic(err)
 	}
 }
@@ -33,8 +33,8 @@ type app struct {
 	searcher weaver.Ref[Searcher]
 }
 
-// Main implements the application main.
-func (a *app) Main(ctx context.Context) error {
+// run implements the application main.
+func run(ctx context.Context, a *app) error {
 	emojis, err := a.searcher.Get().Search(ctx, "pig")
 	if err != nil {
 		return err
