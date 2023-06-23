@@ -1,6 +1,6 @@
 # Service Weaver Workshop
 
-In this workshop, you'll implement an emoji search engine as a [Service
+In this workshop, you'll implement [an emoji search engine][demo] as a [Service
 Weaver][serviceweaver] application.
 
 [emoji_search_demo.webm](https://github.com/ServiceWeaver/workshops/assets/3654277/cde50b36-7808-4c26-983d-54a37532e69a)
@@ -35,4 +35,5 @@ Thank you for participating in the Service Weaver workshop! Please use [this
 feedback form](https://forms.gle/19DLJCKcTiYmSa1v7) to let us know what you
 thought.
 
+[demo]: https://emojis.serviceweaver.dev/
 [serviceweaver]: https://serviceweaver.dev/
