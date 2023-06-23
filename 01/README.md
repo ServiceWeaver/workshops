@@ -32,7 +32,7 @@ and terminates. Feel free to copy and paste code from the documentation.
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/e9c0573de0f20fca6a88106ad9f25fddf2f04233/01/main.go#L15-L39
+https://github.com/ServiceWeaver/workshops/blob/c3e81d5c15ff9349b2c8d0f7da8a9f49607533e4/01/main.go#L15-L39
 </details>
 
 Finally, build and run your application:
