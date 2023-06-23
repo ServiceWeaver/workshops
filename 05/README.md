@@ -7,7 +7,7 @@ beginning of the `Search` method in `searcher.go`.
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/e9c0573de0f20fca6a88106ad9f25fddf2f04233/05/searcher.go#L38
+https://github.com/ServiceWeaver/workshops/blob/c3e81d5c15ff9349b2c8d0f7da8a9f49607533e4/05/searcher.go#L38
 </details>
 
 Re-run your application.
