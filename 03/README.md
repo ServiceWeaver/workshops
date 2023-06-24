@@ -31,4 +31,4 @@ ok	emojis	0.491s
 [**Next Part :arrow_right:**](../04)
 
 [testing]: https://serviceweaver.dev/docs.html#testing
-[AllRunners]: https://pkg.go.dev/github.com/ServiceWeaver/weaver@v0.12.0/weavertest#AllRunners
+[AllRunners]: https://pkg.go.dev/github.com/ServiceWeaver/weaver/weavertest#AllRunners
