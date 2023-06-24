@@ -3,7 +3,7 @@ module emojis
 go 1.20
 
 require (
-	github.com/ServiceWeaver/weaver v0.16.0
+	github.com/ServiceWeaver/weaver v0.16.1
 	go.opentelemetry.io/otel/trace v1.13.0
 )
 
