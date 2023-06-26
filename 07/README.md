@@ -20,7 +20,7 @@ type Cache interface {
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/c3e81d5c15ff9349b2c8d0f7da8a9f49607533e4/07/cache.go#L15-L60
+https://github.com/ServiceWeaver/workshops/blob/62322cde0019ad7c3c02804590f342291aebccf2/07/cache.go#L15-L60
 </details>
 
 Next, update your `Searcher` component to use the cache. When the `Search`
@@ -32,9 +32,9 @@ them in the cache by calling `Put`.
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/c3e81d5c15ff9349b2c8d0f7da8a9f49607533e4/07/searcher.go#L32-L36
-https://github.com/ServiceWeaver/workshops/blob/c3e81d5c15ff9349b2c8d0f7da8a9f49607533e4/07/searcher.go#L41-L47
-https://github.com/ServiceWeaver/workshops/blob/c3e81d5c15ff9349b2c8d0f7da8a9f49607533e4/07/searcher.go#L69-L72
+https://github.com/ServiceWeaver/workshops/blob/62322cde0019ad7c3c02804590f342291aebccf2/07/searcher.go#L32-L36
+https://github.com/ServiceWeaver/workshops/blob/62322cde0019ad7c3c02804590f342291aebccf2/07/searcher.go#L41-L47
+https://github.com/ServiceWeaver/workshops/blob/62322cde0019ad7c3c02804590f342291aebccf2/07/searcher.go#L69-L72
 </details>
 
 Because our basic search algorithm is already quite fast, it's hard to notice

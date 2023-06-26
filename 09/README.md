@@ -8,7 +8,7 @@ cache hits and misses. Review [the documentation on metrics][metrics]. In
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/c3e81d5c15ff9349b2c8d0f7da8a9f49607533e4/09/searcher.go#L27-L37
+https://github.com/ServiceWeaver/workshops/blob/62322cde0019ad7c3c02804590f342291aebccf2/09/searcher.go#L27-L37
 </details>
 
 Inside the `Search` method, increment the `"search_cache_hits"` counter whenever
@@ -18,7 +18,7 @@ there is a cache miss.
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/c3e81d5c15ff9349b2c8d0f7da8a9f49607533e4/09/searcher.go#L54-L63
+https://github.com/ServiceWeaver/workshops/blob/62322cde0019ad7c3c02804590f342291aebccf2/09/searcher.go#L54-L63
 </details>
 
 Build and run your application using `weaver multi deploy`:

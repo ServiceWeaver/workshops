@@ -71,7 +71,7 @@ Finally, given a response `resp` from `ChatGPT`, return the completion
 `weaver.WithConfig`) that won't make sense until the next section. Feel free to
 ignore it for now.
 
-https://github.com/ServiceWeaver/workshops/blob/c3e81d5c15ff9349b2c8d0f7da8a9f49607533e4/10/chatgpt.go#L25-L65
+https://github.com/ServiceWeaver/workshops/blob/62322cde0019ad7c3c02804590f342291aebccf2/10/chatgpt.go#L25-L65
 </details>
 
 ## Config
@@ -97,7 +97,7 @@ Then, embed `weaver.WithConfig[config]` in the struct that implements the
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/c3e81d5c15ff9349b2c8d0f7da8a9f49607533e4/10/chatgpt.go#L31-L42
+https://github.com/ServiceWeaver/workshops/blob/62322cde0019ad7c3c02804590f342291aebccf2/10/chatgpt.go#L31-L42
 </details>
 
 Next, add your secret key to the `api_key` field in the `"emojis/ChatGPT"`
@@ -118,7 +118,7 @@ key from the config file, returning an error if the key is missing.
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/c3e81d5c15ff9349b2c8d0f7da8a9f49607533e4/10/chatgpt.go#L45-L51
+https://github.com/ServiceWeaver/workshops/blob/62322cde0019ad7c3c02804590f342291aebccf2/10/chatgpt.go#L45-L51
 </details>
 
 ## Putting It All Together
@@ -136,7 +136,7 @@ related to the query $QUERY. Don't give an explanation."`.
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/c3e81d5c15ff9349b2c8d0f7da8a9f49607533e4/10/searcher.go#L110-L117
+https://github.com/ServiceWeaver/workshops/blob/62322cde0019ad7c3c02804590f342291aebccf2/10/searcher.go#L110-L117
 </details>
 
 Next, parse and return the emojis from ChatGPT's response. This is surprisingly
@@ -145,7 +145,7 @@ recommend using the https://github.com/rivo/uniseg library to segment ChatGPT's
 response into a set of graphemes and checking to see if each grapheme is in the
 `emojis` map. Here's our solution:
 
-https://github.com/ServiceWeaver/workshops/blob/c3e81d5c15ff9349b2c8d0f7da8a9f49607533e4/10/searcher.go#L128-L138
+https://github.com/ServiceWeaver/workshops/blob/62322cde0019ad7c3c02804590f342291aebccf2/10/searcher.go#L128-L138
 
 In `main.go`, add a `/search_chatgpt?q=<query>` endpoint that calls the
 `SearchChatGPT` method.
@@ -153,7 +153,7 @@ In `main.go`, add a `/search_chatgpt?q=<query>` endpoint that calls the
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/c3e81d5c15ff9349b2c8d0f7da8a9f49607533e4/10/main.go#L57-L59
+https://github.com/ServiceWeaver/workshops/blob/62322cde0019ad7c3c02804590f342291aebccf2/10/main.go#L57-L59
 </details>
 
 Finally, build and run your application:
