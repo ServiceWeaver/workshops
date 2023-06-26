@@ -54,10 +54,10 @@ In a separate terminal, curl the application with query `"pig"`.
 
 ```
 $ curl localhost:9000/search?q=pig
-["🐖","🐷","🐽"]
+["🐖","🐗","🐷","🐽"]
 ```
 
-Your application should return `["🐖","🐷","🐽"]` after a one second delay.
+Your application should return `["🐖","🐗","🐷","🐽"]` after a one second delay.
 Then, re-run the same curl command. This time, the request should return nearly
 instantly, as the results of query `"pig"` are now in the cache.
 

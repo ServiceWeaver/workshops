@@ -24,7 +24,7 @@ $ curl localhost:9000/search?q=sushi
 $ curl localhost:9000/search?q=curry
 ["🍛"]
 $ curl localhost:9000/search?q=shrimp
-["🍤", "🦐"]
+["🍤","🦐"]
 $ curl localhost:9000/search?q=lobster
 ["🦞"]
 ```
