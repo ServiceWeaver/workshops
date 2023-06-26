@@ -89,10 +89,7 @@ $ curl localhost:9000/search?q=pig
 
 Surprisingly, every request is slow! Add some logs to the `Get` and `Put`
 methods of the `Cache` component and see if you can figure out why this
-surprising behavior is happening.
-
-<details>
-<summary>Solution.</summary>
+surprising behavior is happening. Keep reading for an explanation.
 
 Here are the logs produced by our application after curling it four times with
 query `"pig"`:
@@ -131,7 +128,6 @@ redundantly cached.
 
 This repeats for every call to `Search`. Because `Get`s and `Put`s are routed to
 two different replicas, every request results in a cache miss.
-</details>
 
 In the next part, we'll see how to prevent this surprising behavior from
 happening.
