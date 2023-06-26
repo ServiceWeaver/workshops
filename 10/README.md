@@ -67,6 +67,10 @@ Finally, given a response `resp` from `ChatGPT`, return the completion
 <details>
 <summary>Solution.</summary>
 
+**NOTE** that this solution includes some configuration code (e.g.,
+`weaver.WithConfig`) that won't make sense until the next section. Feel free to
+ignore it for now.
+
 https://github.com/ServiceWeaver/workshops/blob/c3e81d5c15ff9349b2c8d0f7da8a9f49607533e4/10/chatgpt.go#L25-L65
 </details>
 
