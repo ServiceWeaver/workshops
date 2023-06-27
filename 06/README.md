@@ -57,7 +57,7 @@ $ weaver multi status
 When you deploy an application with `weaver multi deploy`, every component is
 replicated twice, and every replica is run in a separate OS process. We can
 infer this from the output of `weaver multi status` because the two components,
-`weaver.Main` and `primes.Factorer`, each have two process ids, and all four
+`weaver.Main` and `emojis.Searcher`, each have two process ids, and all four
 process ids are distinct.
 
 Curl your application couple of times:
