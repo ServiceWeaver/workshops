@@ -49,7 +49,7 @@ $ curl localhost:9000/search?q=pig
 ["🐖","🐗","🐷","🐽"]
 $ curl localhost:9000/search?q=cow
 ["🐄","🐮"]
-$ curl localhost:9000/search?baby%20bird
+$ curl localhost:9000/search?q=baby%20bird
 ["🐣","🐤","🐥"]
 ```
 
