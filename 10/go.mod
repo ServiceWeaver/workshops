@@ -54,3 +54,5 @@ require (
 	modernc.org/strutil v1.1.3 // indirect
 	modernc.org/token v1.1.0 // indirect
 )
+
+replace github.com/ServiceWeaver/weaver v0.18.0 => github.com/ServiceWeaver/weaver v0.18.1
