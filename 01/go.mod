@@ -3,7 +3,7 @@ module emojis
 go 1.20
 
 require (
-	github.com/ServiceWeaver/weaver v0.18.0
+	github.com/ServiceWeaver/weaver v0.18.1
 	go.opentelemetry.io/otel/trace v1.16.0
 )
 
@@ -51,3 +51,5 @@ require (
 	modernc.org/strutil v1.1.3 // indirect
 	modernc.org/token v1.1.0 // indirect
 )
+
+replace github.com/ServiceWeaver/weaver v0.18.0 => github.com/ServiceWeaver/weaver v0.18.1
