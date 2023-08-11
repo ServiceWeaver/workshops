@@ -27,12 +27,19 @@ func TestInstructions(t *testing.T) {
 	if err := exec.Command("weaver", "generate", ".").Run(); err != nil {
 		t.Fatalf("weaver generate .: %v", err)
 	}
-	single := exec.Command("go", "run", ".")
+	if err := exec.Command("go", "build", ".").Run(); err != nil {
+		t.Fatalf("go build .: %v", err)
+	}
+	single := exec.Command("./emojis")
 	single.Env = append(single.Environ(), "SERVICEWEAVER_CONFIG=config.toml")
 	if err := single.Start(); err != nil {
 		t.Fatal(err)
 	}
-	defer single.Process.Kill()
+	defer func() {
+		if err := single.Process.Kill(); err != nil {
+			t.Fatal(err)
+		}
+	}()
 
 	// Give the single process server time to start.
 	time.Sleep(time.Second)
