@@ -35,7 +35,7 @@ type searcher struct {
 }
 
 func (s *searcher) Search(ctx context.Context, query string) ([]string, error) {
-	s.Logger().Debug("Search", "query", query)
+	s.Logger(ctx).Debug("Search", "query", query)
 
 	// Perform the search. First, we lowercase the query and split it into
 	// words. For example, the query "Black cat" is tokenized to the words
