@@ -23,8 +23,13 @@ import (
 // TestInstructions tests that the instructions in README.md work as expected.
 // Workshop participants can ignore this file.
 func TestInstructions(t *testing.T) {
+	// Build the server.
+	if err := exec.Command("go", "build", ".").Run(); err != nil {
+		t.Fatal(err)
+	}
+
 	// Start the server.
-	server := exec.Command("go", "run", ".")
+	server := exec.Command("./emojis")
 	server.Env = append(server.Environ(), "SERVICEWEAVER_CONFIG=config.toml")
 	if err := server.Start(); err != nil {
 		t.Fatal(err)
