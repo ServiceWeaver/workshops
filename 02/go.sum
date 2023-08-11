@@ -3,8 +3,8 @@ github.com/BurntSushi/toml v1.3.2/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbi
 github.com/DataDog/hyperloglog v0.0.0-20220804205443-1806d9b66146 h1:S5WsRc58vIeuhvbz0V0FKs19nTbh5z23DCutLIXJkFA=
 github.com/DataDog/hyperloglog v0.0.0-20220804205443-1806d9b66146/go.mod h1:hFPkswc42pKhRbeKDKXy05mRi7J1kJ2vMNbvd9erH0M=
 github.com/DataDog/mmh3 v0.0.0-20210722141835-012dc69a9e49 h1:EbzDX8HPk5uE2FsJYxD74QmMw0/3CqSKhEr6teh0ncQ=
-github.com/ServiceWeaver/weaver v0.18.1 h1:SE3YhFO58xm3zjYY1wF4Lbz928m27tmQdnbEsdagil4=
-github.com/ServiceWeaver/weaver v0.18.1/go.mod h1:/tJzitb+h8nLeHa4Mk7iIGU5ZV4OGB4C9IvIfD8n/1I=
+github.com/ServiceWeaver/weaver v0.19.0 h1:iGf4XkmohY8pTaQJv59N+YIoI+CSTnAWxls5gFwfiVQ=
+github.com/ServiceWeaver/weaver v0.19.0/go.mod h1:/tJzitb+h8nLeHa4Mk7iIGU5ZV4OGB4C9IvIfD8n/1I=
 github.com/antlr/antlr4/runtime/Go/antlr/v4 v4.0.0-20230305170008-8188dc5388df h1:7RFfzj4SSt6nnvCPbCqijJi1nWCd+TqAT3bYCStRC18=
 github.com/antlr/antlr4/runtime/Go/antlr/v4 v4.0.0-20230305170008-8188dc5388df/go.mod h1:pSwJ0fSY5KhvocuWSx4fz3BA8OrA1bQn+K1Eli3BRwM=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

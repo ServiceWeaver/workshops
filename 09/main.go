@@ -42,7 +42,7 @@ type app struct {
 
 // run implements the application main.
 func run(ctx context.Context, a *app) error {
-	a.Logger().Info("emojis listener available.", "addr", a.lis)
+	a.Logger(ctx).Info("emojis listener available.", "addr", a.lis)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
