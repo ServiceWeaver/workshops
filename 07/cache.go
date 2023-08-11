@@ -44,17 +44,17 @@ func (c *cache) Init(context.Context) error {
 	return nil
 }
 
-func (c *cache) Get(_ context.Context, query string) ([]string, error) {
+func (c *cache) Get(ctx context.Context, query string) ([]string, error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	c.Logger().Debug("Get", "query", query)
+	c.Logger(ctx).Debug("Get", "query", query)
 	return c.emojis[query], nil
 }
 
-func (c *cache) Put(_ context.Context, query string, emojis []string) error {
+func (c *cache) Put(ctx context.Context, query string, emojis []string) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	c.Logger().Debug("Put", "query", query)
+	c.Logger(ctx).Debug("Put", "query", query)
 	c.emojis[query] = emojis
 	return nil
 }

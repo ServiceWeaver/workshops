@@ -49,12 +49,12 @@ type searcher struct {
 }
 
 func (s *searcher) Search(ctx context.Context, query string) ([]string, error) {
-	s.Logger().Debug("Search", "query", query)
+	s.Logger(ctx).Debug("Search", "query", query)
 
 	// Try to get the emojis from the cache, but continue if it's not found or
 	// there is an error.
 	if emojis, err := s.cache.Get().Get(ctx, query); err != nil {
-		s.Logger().Error("cache.Get", "query", query, "err", err)
+		s.Logger(ctx).Error("cache.Get", "query", query, "err", err)
 	} else if len(emojis) > 0 {
 		cacheHits.Add(1)
 		return emojis, nil
@@ -84,7 +84,7 @@ func (s *searcher) Search(ctx context.Context, query string) ([]string, error) {
 
 	// Try to cache the results, but continue if there is an error.
 	if err := s.cache.Get().Put(ctx, query, results); err != nil {
-		s.Logger().Error("cache.Put", "query", query, "err", err)
+		s.Logger(ctx).Error("cache.Put", "query", query, "err", err)
 	}
 
 	return results, nil
