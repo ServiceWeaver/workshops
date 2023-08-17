@@ -12,7 +12,7 @@ Then, in a file called `searcher.go`, write a component called `Searcher` with
 the following method:
 
 ```go
-Search(context context.Context, query string) ([]string, error)
+Search(ctx context.Context, query string) ([]string, error)
 ```
 
 The `Search` method receives a query like `"black cat"` and returns the emojis

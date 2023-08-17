@@ -56,10 +56,10 @@ func (s *searcher) Search(ctx context.Context, query string) ([]string, error) {
 	if emojis, err := s.cache.Get().Get(ctx, query); err != nil {
 		s.Logger(ctx).Error("cache.Get", "query", query, "err", err)
 	} else if len(emojis) > 0 {
-		cacheHits.Add(1)
+		cacheHits.Inc()
 		return emojis, nil
 	} else {
-		cacheMisses.Add(1)
+		cacheMisses.Inc()
 	}
 
 	// Perform the search. First, we lowercase the query and split it into
