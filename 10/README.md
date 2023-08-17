@@ -123,10 +123,10 @@ https://github.com/ServiceWeaver/workshops/blob/5b26ed2f334b061315b49320cf9ee04f
 
 ## Putting It All Together
 
-In `searcher.go`, add a `SearchChatGPT(context.Context, query string) ([]string,
-error)` method to the `Searcher` component. The `SearchChatGPT` method acts like
-the `Search` method&mdash;it receives a query and returns a list of matching
-emojis&mdash;but it returns the emojis suggested by ChatGPT.
+In `searcher.go`, add a `SearchChatGPT(ctx context.Context, query string)
+([]string, error)` method to the `Searcher` component. The `SearchChatGPT`
+method acts like the `Search` method&mdash;it receives a query and returns a
+list of matching emojis&mdash;but it returns the emojis suggested by ChatGPT.
 
 To implement the `SearchChatGPT` method, form a ChatGPT prompt from the user's
 query and pass it to the `ChatGPT.Complete` method. You can get creative with
@@ -160,6 +160,7 @@ Finally, build and run your application:
 
 ```
 $ weaver generate .
+$ go build .
 $ weaver multi deploy config.toml
 ```
 

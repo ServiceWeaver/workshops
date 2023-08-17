@@ -39,6 +39,7 @@ Finally, run your application. You can provide the config file using the
 serving traffic.
 
 ```
+$ weaver generate .
 $ SERVICEWEAVER_CONFIG=config.toml go run .
 ```
 
@@ -98,7 +99,7 @@ We have written a web UI, [`index.html`](index.html), for your app. You can
 optionally serve `index.html` on the root endpoint `/` of your HTTP server.
 First, import the [embed](embed) package into `main.go`.
 
-```
+```go
 import _ "embed"
 ```
 
@@ -106,14 +107,14 @@ Next, download or copy-and-paste the [`index.html`](index.html) file into your
 `emojis/` directory. Next, embed the contents of `index.html` into a
 package-scoped `indexHtml` variable in `main.go`.
 
-```
+```go
 //go:embed index.html
-indexHtml string
+var indexHtml string
 ```
 
 Finally, register the following HTTP handler.
 
-```
+```go
 http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
