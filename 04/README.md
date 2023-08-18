@@ -108,7 +108,7 @@ package-scoped `indexHtml` variable in `main.go`.
 
 ```
 //go:embed index.html
-indexHtml string
+var indexHtml string
 ```
 
 Finally, register the following HTTP handler.
