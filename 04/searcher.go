@@ -47,7 +47,7 @@ func (s *searcher) Search(ctx context.Context, query string) ([]string, error) {
 	//
 	// We iterate over all emojis and return the ones that match the query.
 	words := strings.Fields(strings.ToLower(query))
-	var results []string
+	results := []string{}
 	for emoji, labels := range emojis {
 		if matches(labels, words) {
 			results = append(results, emoji)

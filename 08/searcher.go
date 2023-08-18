@@ -42,7 +42,7 @@ func (s *searcher) Search(ctx context.Context, query string) ([]string, error) {
 	// there is an error.
 	if emojis, err := s.cache.Get().Get(ctx, query); err != nil {
 		s.Logger(ctx).Error("cache.Get", "query", query, "err", err)
-	} else if len(emojis) > 0 {
+	} else if emojis != nil {
 		return emojis, nil
 	}
 
@@ -58,7 +58,7 @@ func (s *searcher) Search(ctx context.Context, query string) ([]string, error) {
 	//
 	// We iterate over all emojis and return the ones that match the query.
 	words := strings.Fields(strings.ToLower(query))
-	var results []string
+	results := []string{}
 	for emoji, labels := range emojis {
 		if matches(labels, words) {
 			results = append(results, emoji)

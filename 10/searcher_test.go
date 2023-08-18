@@ -33,7 +33,7 @@ func TestSearch(t *testing.T) {
 		{"pig", []string{"🐖", "🐗", "🐷", "🐽"}},
 		{"PiG", []string{"🐖", "🐗", "🐷", "🐽"}},
 		{"black cat", []string{"🐈\u200d⬛"}},
-		{"foo bar baz", nil},
+		{"foo bar baz", []string{}},
 	} {
 		for _, runner := range weavertest.AllRunners() {
 			runner.Name = fmt.Sprintf("%s/%q", runner.Name, test.query)
