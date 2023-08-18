@@ -167,7 +167,7 @@ $ weaver multi deploy config.toml
 You can curl the `/search_chatgpt` endpoint directly:
 
 ```console
-$ curl localhost:9000/search_chatgpt?q=happy
+$ curl "localhost:9000/search_chatgpt?q=happy"
 ["😀","😁","😃","😄","😊","😍","😎","🤗","😻","🌞","🎉","🎊","🎁","🎈","💐","👍","✨","🌟","💫","🌈"]
 ```
 

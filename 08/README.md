@@ -32,13 +32,13 @@ $ weaver multi deploy config.toml
 And again in a separate terminal, repeatedly curl the application.
 
 ```
-$ curl localhost:9000/search?q=pig
+$ curl "localhost:9000/search?q=pig"
 ["🐖","🐗","🐷","🐽"]
-$ curl localhost:9000/search?q=pig
+$ curl "localhost:9000/search?q=pig"
 ["🐖","🐗","🐷","🐽"]
-$ curl localhost:9000/search?q=pig
+$ curl "localhost:9000/search?q=pig"
 ["🐖","🐗","🐷","🐽"]
-$ curl localhost:9000/search?q=pig
+$ curl "localhost:9000/search?q=pig"
 ["🐖","🐗","🐷","🐽"]
 ```
 

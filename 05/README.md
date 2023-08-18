@@ -19,13 +19,13 @@ $ SERVICEWEAVER_CONFIG=config.toml go run .
 In a separate terminal, curl the application a couple of times:
 
 ```
-$ curl localhost:9000/search?q=sushi
+$ curl "localhost:9000/search?q=sushi"
 ["🍣"]
-$ curl localhost:9000/search?q=curry
+$ curl "localhost:9000/search?q=curry"
 ["🍛"]
-$ curl localhost:9000/search?q=shrimp
+$ curl "localhost:9000/search?q=shrimp"
 ["🍤","🦐"]
-$ curl localhost:9000/search?q=lobster
+$ curl "localhost:9000/search?q=lobster"
 ["🦞"]
 ```
 

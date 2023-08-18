@@ -53,7 +53,7 @@ $ SERVICEWEAVER_CONFIG=config.toml go run .
 In a separate terminal, curl the application with query `"pig"`.
 
 ```
-$ curl localhost:9000/search?q=pig
+$ curl "localhost:9000/search?q=pig"
 ["🐖","🐗","🐷","🐽"]
 ```
 
@@ -62,7 +62,7 @@ Then, re-run the same curl command. This time, the request should return nearly
 instantly, as the results of query `"pig"` are now in the cache.
 
 ```
-$ curl localhost:9000/search?q=pig
+$ curl "localhost:9000/search?q=pig"
 ["🐖","🐗","🐷","🐽"]
 ```
 
@@ -77,13 +77,13 @@ And again in a separate terminal, repeatedly curl the application with query
 `"pig"`:
 
 ```
-$ curl localhost:9000/search?q=pig
+$ curl "localhost:9000/search?q=pig"
 ["🐖","🐗","🐷","🐽"]
-$ curl localhost:9000/search?q=pig
+$ curl "localhost:9000/search?q=pig"
 ["🐖","🐗","🐷","🐽"]
-$ curl localhost:9000/search?q=pig
+$ curl "localhost:9000/search?q=pig"
 ["🐖","🐗","🐷","🐽"]
-$ curl localhost:9000/search?q=pig
+$ curl "localhost:9000/search?q=pig"
 ["🐖","🐗","🐷","🐽"]
 ```
 
