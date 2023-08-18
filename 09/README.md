@@ -32,15 +32,15 @@ In a separate terminal, curl your application with various queries, making sure
 to repeat some requests.
 
 ```
-$ curl localhost:9000/search?q=two    # MISS 1
-$ curl localhost:9000/search?q=two    # HIT  1
-$ curl localhost:9000/search?q=three  # MISS 2
-$ curl localhost:9000/search?q=three  # HIT  2
-$ curl localhost:9000/search?q=three  # HIT  3
-$ curl localhost:9000/search?q=four   # MISS 3
-$ curl localhost:9000/search?q=four   # HIT  4
-$ curl localhost:9000/search?q=four   # HIT  5
-$ curl localhost:9000/search?q=four   # HIT  6
+$ curl "localhost:9000/search?q=two"    # MISS 1
+$ curl "localhost:9000/search?q=two"    # HIT  1
+$ curl "localhost:9000/search?q=three"  # MISS 2
+$ curl "localhost:9000/search?q=three"  # HIT  2
+$ curl "localhost:9000/search?q=three"  # HIT  3
+$ curl "localhost:9000/search?q=four"   # MISS 3
+$ curl "localhost:9000/search?q=four"   # HIT  4
+$ curl "localhost:9000/search?q=four"   # HIT  5
+$ curl "localhost:9000/search?q=four"   # HIT  6
 ```
 
 Run `weaver multi metrics` to see a snapshot of the metric values.

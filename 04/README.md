@@ -16,7 +16,7 @@ Next, inside of the function you pass to `weaver.Run`, implement an HTTP handler
 for the `/search` endpoint. The endpoint receives GET requests of the form
 `/search?q=<query>` and returns the JSON serialized list of emojis that match
 the query ([`json.Marshal`](https://pkg.go.dev/encoding/json#Marshal)). For
-example, `curl localhost:9000/search?q=pig` should return
+example, `curl "localhost:9000/search?q=pig"` should return
 `["🐖","🐗","🐷","🐽"]`. At the end of the function, call
 [`http.Serve`][http.Serve] to serve HTTP traffic using the handler you just
 implemented.
@@ -47,11 +47,11 @@ $ SERVICEWEAVER_CONFIG=config.toml go run .
 In a separate terminal, curl the `/search` endpoint:
 
 ```
-$ curl localhost:9000/search?q=pig
+$ curl "localhost:9000/search?q=pig"
 ["🐖","🐗","🐷","🐽"]
-$ curl localhost:9000/search?q=cow
+$ curl "localhost:9000/search?q=cow"
 ["🐄","🐮"]
-$ curl localhost:9000/search?q=baby%20bird
+$ curl "localhost:9000/search?q=baby%20bird"
 ["🐣","🐤","🐥"]
 ```
 
