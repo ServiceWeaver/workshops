@@ -60,6 +60,6 @@ func TestInstructions(t *testing.T) {
 
 	// Run "weaver single status".
 	if err := exec.Command("weaver", "single", "status").Run(); err != nil {
-		t.Fatalf("weaver single status .: %v", err)
+		t.Fatalf("weaver single status: %v", err)
 	}
 }

@@ -13,26 +13,6 @@ import (
 	"reflect"
 )
 
-var _ codegen.LatestVersion = codegen.Version[[0][17]struct{}](`
-
-ERROR: You generated this file with 'weaver generate' v0.19.0 (codegen
-version v0.17.0). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
-version can be found in your go.mod file or by running the following command.
-
-    go list -m github.com/ServiceWeaver/weaver
-
-We recommend updating the weaver module and the 'weaver generate' command by
-running the following.
-
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
-
-Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
-
-`)
-
 func init() {
 	codegen.Register(codegen.Registration{
 		Name:   "emojis/Cache",
@@ -47,6 +27,9 @@ func init() {
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return cache_server_stub{impl: impl.(Cache), addLoad: addLoad}
+		},
+		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
+			return cache_reflect_stub{caller: caller}
 		},
 		RefData: "",
 	})
@@ -63,6 +46,9 @@ func init() {
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return chatGPT_server_stub{impl: impl.(ChatGPT), addLoad: addLoad}
 		},
+		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
+			return chatGPT_reflect_stub{caller: caller}
+		},
 		RefData: "",
 	})
 	codegen.Register(codegen.Registration{
@@ -76,6 +62,9 @@ func init() {
 		ClientStubFn: func(stub codegen.Stub, caller string) any { return main_client_stub{stub: stub} },
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return main_server_stub{impl: impl.(weaver.Main), addLoad: addLoad}
+		},
+		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
+			return main_reflect_stub{caller: caller}
 		},
 		RefData: "⟦f3377ce6:wEaVeReDgE:github.com/ServiceWeaver/weaver/Main→emojis/Searcher⟧\n⟦a234aa48:wEaVeRlIsTeNeRs:github.com/ServiceWeaver/weaver/Main→emojis⟧\n",
 	})
@@ -91,6 +80,9 @@ func init() {
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return searcher_server_stub{impl: impl.(Searcher), addLoad: addLoad}
+		},
+		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
+			return searcher_reflect_stub{caller: caller}
 		},
 		RefData: "⟦e0ea07ba:wEaVeReDgE:emojis/Searcher→emojis/Cache⟧\n⟦92032889:wEaVeReDgE:emojis/Searcher→emojis/ChatGPT⟧\n",
 	})
@@ -567,6 +559,29 @@ func (s searcher_client_stub) SearchChatGPT(ctx context.Context, a0 string) (r0 
 	return
 }
 
+// Note that "weaver generate" will always generate the error message below.
+// Everything is okay. The error message is only relevant if you see it when
+// you run "go build" or "go run".
+var _ codegen.LatestVersion = codegen.Version[[0][20]struct{}](`
+
+ERROR: You generated this file with 'weaver generate' v0.20.0 (codegen
+version v0.20.0). The generated code is incompatible with the version of the
+github.com/ServiceWeaver/weaver module that you're using. The weaver module
+version can be found in your go.mod file or by running the following command.
+
+    go list -m github.com/ServiceWeaver/weaver
+
+We recommend updating the weaver module and the 'weaver generate' command by
+running the following.
+
+    go get github.com/ServiceWeaver/weaver@latest
+    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+
+Then, re-run 'weaver generate' and re-build your code. If the problem persists,
+please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+
+`)
+
 // Server stub implementations.
 
 type cache_server_stub struct {
@@ -771,6 +786,61 @@ func (s searcher_server_stub) searchChatGPT(ctx context.Context, args []byte) (r
 	serviceweaver_enc_slice_string_4af10117(enc, r0)
 	enc.Error(appErr)
 	return enc.Data(), nil
+}
+
+// Reflect stub implementations.
+
+type cache_reflect_stub struct {
+	caller func(string, context.Context, []any, []any) error
+}
+
+// Check that cache_reflect_stub implements the Cache interface.
+var _ Cache = (*cache_reflect_stub)(nil)
+
+func (s cache_reflect_stub) Get(ctx context.Context, a0 string) (r0 []string, err error) {
+	err = s.caller("Get", ctx, []any{a0}, []any{&r0})
+	return
+}
+
+func (s cache_reflect_stub) Put(ctx context.Context, a0 string, a1 []string) (err error) {
+	err = s.caller("Put", ctx, []any{a0, a1}, []any{})
+	return
+}
+
+type chatGPT_reflect_stub struct {
+	caller func(string, context.Context, []any, []any) error
+}
+
+// Check that chatGPT_reflect_stub implements the ChatGPT interface.
+var _ ChatGPT = (*chatGPT_reflect_stub)(nil)
+
+func (s chatGPT_reflect_stub) Complete(ctx context.Context, a0 string) (r0 string, err error) {
+	err = s.caller("Complete", ctx, []any{a0}, []any{&r0})
+	return
+}
+
+type main_reflect_stub struct {
+	caller func(string, context.Context, []any, []any) error
+}
+
+// Check that main_reflect_stub implements the weaver.Main interface.
+var _ weaver.Main = (*main_reflect_stub)(nil)
+
+type searcher_reflect_stub struct {
+	caller func(string, context.Context, []any, []any) error
+}
+
+// Check that searcher_reflect_stub implements the Searcher interface.
+var _ Searcher = (*searcher_reflect_stub)(nil)
+
+func (s searcher_reflect_stub) Search(ctx context.Context, a0 string) (r0 []string, err error) {
+	err = s.caller("Search", ctx, []any{a0}, []any{&r0})
+	return
+}
+
+func (s searcher_reflect_stub) SearchChatGPT(ctx context.Context, a0 string) (r0 []string, err error) {
+	err = s.caller("SearchChatGPT", ctx, []any{a0}, []any{&r0})
+	return
 }
 
 // Router methods.
