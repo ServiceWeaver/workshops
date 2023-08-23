@@ -1,9 +1,9 @@
 module emojis
 
-go 1.20
+go 1.21
 
 require (
-	github.com/ServiceWeaver/weaver v0.19.0
+	github.com/ServiceWeaver/weaver v0.20.0
 	go.opentelemetry.io/otel v1.16.0
 	go.opentelemetry.io/otel/trace v1.16.0
 	golang.org/x/exp v0.0.0-20230725093048-515e97ebf090
