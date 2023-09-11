@@ -76,7 +76,7 @@ jobs:
 
         [kube]
         listeners.emojis = {public = true}
-        image = "${{ env.CLUSTER_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT }}/${{ env.REPO_NAME }}/emojis"
+        repo = "${{ env.CLUSTER_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT }}/${{ env.REPO_NAME }}"
         EOF
         )
         echo "$CONFIG" > ${{ env.CONFIG_FILE }}
