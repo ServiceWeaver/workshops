@@ -7,7 +7,7 @@ In this part, you will write a unit test for the `Searcher` component. Review
 - The query `"pig"` should return 🐖, 🐗, 🐷, and 🐽.
 - The query `"PiG"` should return 🐖, 🐗, 🐷, and 🐽.
 - The query `"black cat"` should return 🐈‍⬛.
-- The query `"foo bar baz"` should return `nil`.
+- The query `"foo bar baz"` should return `[]string{}`.
 
 Make sure to run every unit test with all the `Runner`s returned by
 [`weavertest.AllRunners`][AllRunners].
@@ -15,7 +15,7 @@ Make sure to run every unit test with all the `Runner`s returned by
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/5b26ed2f334b061315b49320cf9ee04fc0e009e3/03/searcher_test.go#L15-L51
+https://github.com/ServiceWeaver/workshops/blob/912c215cecd611feadd2e23fcc80fe09f4af2045/03/searcher_test.go#L15-L51
 </details>
 
 Finally, run the unit tests with `go test`.
