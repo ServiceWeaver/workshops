@@ -9,7 +9,7 @@ routing key.
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/5b26ed2f334b061315b49320cf9ee04fc0e009e3/08/cache.go#L63-L74
+https://github.com/ServiceWeaver/workshops/blob/912c215cecd611feadd2e23fcc80fe09f4af2045/08/cache.go#L63-L74
 </details>
 
 Embed `weaver.WithRouter[router]` in your cache implementation to enable
@@ -18,7 +18,7 @@ routing.
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/5b26ed2f334b061315b49320cf9ee04fc0e009e3/08/cache.go#L34-L41
+https://github.com/ServiceWeaver/workshops/blob/912c215cecd611feadd2e23fcc80fe09f4af2045/08/cache.go#L34-L41
 </details>
 
 Build and run your application using `weaver multi deploy`:
