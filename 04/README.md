@@ -9,7 +9,7 @@ the listener is listening on.
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/912c215cecd611feadd2e23fcc80fe09f4af2045/04/main.go#L36-L45
+https://github.com/ServiceWeaver/workshops/blob/4eca79ebc6bfe3ef1225c965ec729db70f175994/04/main.go#L36-L45
 </details>
 
 Next, inside of the function you pass to `weaver.Run`, implement an HTTP handler
@@ -24,7 +24,7 @@ implemented.
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/912c215cecd611feadd2e23fcc80fe09f4af2045/04/main.go#L43-L72
+https://github.com/ServiceWeaver/workshops/blob/4eca79ebc6bfe3ef1225c965ec729db70f175994/04/main.go#L43-L78
 </details>
 
 Next, create a config file called `config.toml` with the following contents to

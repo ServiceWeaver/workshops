@@ -27,7 +27,7 @@ emoji's labels. Return the matching emojis is sorted order
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/912c215cecd611feadd2e23fcc80fe09f4af2045/02/searcher.go#L15-L68
+https://github.com/ServiceWeaver/workshops/blob/4eca79ebc6bfe3ef1225c965ec729db70f175994/02/searcher.go#L15-L68
 </details>
 
 Next, update your application to print out the emojis that match the query
@@ -36,7 +36,7 @@ Next, update your application to print out the emojis that match the query
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/912c215cecd611feadd2e23fcc80fe09f4af2045/02/main.go#L30-L44
+https://github.com/ServiceWeaver/workshops/blob/4eca79ebc6bfe3ef1225c965ec729db70f175994/02/main.go#L30-L44
 </details>
 
 Finally, run your application.
