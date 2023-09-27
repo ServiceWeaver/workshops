@@ -49,13 +49,16 @@ func run(ctx context.Context, a *app) error {
 			http.NotFound(w, r)
 			return
 		}
-		fmt.Fprint(w, indexHtml)
+		if _, err := fmt.Fprint(w, indexHtml); err != nil {
+			a.Logger(r.Context()).Error("error writing index.html", "err", err)
+		}
 	})
 	http.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
 		// Search for the list of matching emojis.
 		query := r.URL.Query().Get("q")
 		emojis, err := a.searcher.Get().Search(r.Context(), query)
 		if err != nil {
+			a.Logger(r.Context()).Error("error getting search results", "err", err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
@@ -63,10 +66,13 @@ func run(ctx context.Context, a *app) error {
 		// JSON serialize the results.
 		bytes, err := json.Marshal(emojis)
 		if err != nil {
+			a.Logger(r.Context()).Error("error marshaling search results", "err", err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		fmt.Fprintln(w, string(bytes))
+		if _, err := fmt.Fprintln(w, string(bytes)); err != nil {
+			a.Logger(r.Context()).Error("error writing search results", "err", err)
+		}
 	})
 	return http.Serve(a.lis, nil)
 }
