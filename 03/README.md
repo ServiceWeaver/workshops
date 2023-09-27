@@ -15,7 +15,7 @@ Make sure to run every unit test with all the `Runner`s returned by
 <details>
 <summary>Solution.</summary>
 
-https://github.com/ServiceWeaver/workshops/blob/912c215cecd611feadd2e23fcc80fe09f4af2045/03/searcher_test.go#L15-L51
+https://github.com/ServiceWeaver/workshops/blob/4eca79ebc6bfe3ef1225c965ec729db70f175994/03/searcher_test.go#L15-L51
 </details>
 
 Finally, run the unit tests with `go test`.
