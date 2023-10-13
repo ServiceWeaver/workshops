@@ -51,7 +51,7 @@ jobs:
         run: go install honnef.co/go/tools/cmd/staticcheck@v0.4.3
 
       - name: Install weaver
-        run: go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+        run: cd ${{ matrix.dir }} && go install github.com/ServiceWeaver/weaver/cmd/weaver
 
       - name: Build and test ${{ matrix.dir }}
         run: ./build_and_test.sh ${{ matrix.dir }}
