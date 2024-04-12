@@ -15,15 +15,20 @@
 name: Deploy to GKE
 
 env:
-  CONFIG_FILE: deploy.toml
+  APP_CONFIG_FILE: app.toml
+  DEPLOYMENT_CONFIG_FILE: deploy.yaml
   CLUSTER_NAME: kube
-  CLUSTER_REGION: us-central1
+  CLUSTER_REGION: us-west1
   REPO_NAME: github-deploy
 
 on:
   push:
     branches:
     - 'main'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -76,14 +81,27 @@ jobs:
 
         [kube]
         listeners.emojis = {public = true}
-        image = "${{ env.CLUSTER_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT }}/${{ env.REPO_NAME }}/emojis"
+        repo = "${{ env.CLUSTER_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT }}/${{ env.REPO_NAME }}/emojis"
         EOF
         )
-        echo "$CONFIG" > ${{ env.CONFIG_FILE }}
-        cat ${{ env.CONFIG_FILE }}
+        echo "$CONFIG" > ${{ env.APP_CONFIG_FILE }}
+        cat ${{ env.APP_CONFIG_FILE }}
+
+    - name: Generate the app deployment file
+      run: |
+        CONFIG=$(cat << EOF
+        appConfig: "${{ env.APP_CONFIG_FILE }}"
+        repo: "${{ env.CLUSTER_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT }}/${{ env.REPO_NAME }}/emojis"
+        listeners:
+          - name: emojis
+            public: true
+        EOF
+        )
+        echo "$CONFIG" > ${{ env.DEPLOYMENT_CONFIG_FILE }}
+        cat ${{ env.DEPLOYMENT_CONFIG_FILE }}
 
     - name: Build the YAML files
-      run: weaver-kube deploy --runInDevMode ${{ env.CONFIG_FILE }}
+      run: weaver-kube deploy ${{ env.DEPLOYMENT_CONFIG_FILE }}
 
     - name: Deploy the YAML files
       run: |
