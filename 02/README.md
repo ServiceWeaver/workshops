@@ -56,7 +56,7 @@ ever fails to build with an error coming from a `weaver_gen.go` file, try
 re-running `weaver generate`.
 
 [**:arrow_left: Previous Part**](../01)
-&nbsp;&nbsp;&nbsp;:black_circle:&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; :black_circle: &nbsp;&nbsp;&nbsp;
 [**Next Part :arrow_right:**](../03)
 
 [fundamental_theorem]: https://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic

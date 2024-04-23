@@ -178,7 +178,7 @@ parallel and merges the results together.
 [emoji_search_demo.webm](https://github.com/ServiceWeaver/workshops/assets/3654277/cde50b36-7808-4c26-983d-54a37532e69a)
 
 [**:arrow_left: Previous Part**](../09)
-&nbsp;&nbsp;&nbsp;:black_circle:&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; :black_circle: &nbsp;&nbsp;&nbsp;
 [**Home :house:**](..)
 
 [ChatCompletionRequest]: https://pkg.go.dev/github.com/sashabaranov/go-openai#ChatCompletionRequest

@@ -46,7 +46,7 @@ id. Then comes the file and line where the log was produced, followed finally by
 the contents of the log.
 
 [**:arrow_left: Previous Part**](../04)
-&nbsp;&nbsp;&nbsp;:black_circle:&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; :black_circle: &nbsp;&nbsp;&nbsp;
 [**Next Part :arrow_right:**](../06)
 
 [logging]: https://serviceweaver.dev/docs.html#logging

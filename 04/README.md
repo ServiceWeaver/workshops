@@ -131,7 +131,7 @@ the following web UI.
 [emoji_search_demo.webm](https://github.com/ServiceWeaver/workshops/assets/3654277/8ced2cb0-18c2-41fc-b14f-cc4f602deb38)
 
 [**:arrow_left: Previous Part**](../03)
-&nbsp;&nbsp;&nbsp;:black_circle:&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; :black_circle: &nbsp;&nbsp;&nbsp;
 [**Next Part :arrow_right:**](../05)
 
 [listeners]: https://serviceweaver.dev/docs.html#step-by-step-tutorial-listeners
