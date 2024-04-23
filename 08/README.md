@@ -63,7 +63,7 @@ Notice that every `Get` and `Put` is routed to replica `e1ef982f`. At this
 point, feel free to remove the `time.Sleep(time.Second)` call from your code.
 
 [**:arrow_left: Previous Part**](../07)
-&nbsp;&nbsp;&nbsp;:black_circle:&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; :black_circle: &nbsp;&nbsp;&nbsp;
 [**Next Part :arrow_right:**](../09)
 
 [routing]: https://serviceweaver.dev/docs.html#routing

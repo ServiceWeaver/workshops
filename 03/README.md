@@ -27,7 +27,7 @@ ok	emojis	0.491s
 ```
 
 [**:arrow_left: Previous Part**](../02)
-&nbsp;&nbsp;&nbsp;:black_circle:&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; :black_circle: &nbsp;&nbsp;&nbsp;
 [**Next Part :arrow_right:**](../04)
 
 [testing]: https://serviceweaver.dev/docs.html#testing

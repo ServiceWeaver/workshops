@@ -133,7 +133,7 @@ In the next part, we'll see how to prevent this surprising behavior from
 happening.
 
 [**:arrow_left: Previous Part**](../06)
-&nbsp;&nbsp;&nbsp;:black_circle:&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; :black_circle: &nbsp;&nbsp;&nbsp;
 [**Next Part :arrow_right:**](../08)
 
 [component_semantics]: https://serviceweaver.dev/docs.html#components-semantics

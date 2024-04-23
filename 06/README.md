@@ -85,7 +85,7 @@ D0525 09:40:36.534745 emojis.Searcher d29c6296 searcher.go:53] Search query="lob
 ```
 
 [**:arrow_left: Previous Part**](../05)
-&nbsp;&nbsp;&nbsp;:black_circle:&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; :black_circle: &nbsp;&nbsp;&nbsp;
 [**Next Part :arrow_right:**](../07)
 
 [multiprocess]: https://serviceweaver.dev/docs.html#step-by-step-tutorial-multiprocess-execution

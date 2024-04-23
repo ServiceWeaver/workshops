@@ -86,7 +86,7 @@ and [multiprocess metrics][multiprocess_metrics] for instructions on how to view
 metrics using Prometheus.
 
 [**:arrow_left: Previous Part**](../08)
-&nbsp;&nbsp;&nbsp;:black_circle:&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; :black_circle: &nbsp;&nbsp;&nbsp;
 [**Next Part :arrow_right:**](../10)
 
 [metrics]: https://serviceweaver.dev/docs.html#metrics
