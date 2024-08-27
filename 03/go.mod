@@ -3,7 +3,7 @@ module emojis
 go 1.21
 
 require (
-	github.com/ServiceWeaver/weaver v0.23.2
+	github.com/ServiceWeaver/weaver v0.24.4
 	github.com/google/go-cmp v0.5.9
 	go.opentelemetry.io/otel v1.19.0
 	go.opentelemetry.io/otel/trace v1.19.0
@@ -23,7 +23,7 @@ require (
 	github.com/google/pprof v0.0.0-20230705174524-200ffdc848b8 // indirect
 	github.com/google/uuid v1.3.1 // indirect
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
-	github.com/lightstep/varopt v1.3.0 // indirect
+	github.com/lightstep/varopt v1.4.0 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
@@ -34,8 +34,8 @@ require (
 	go.opentelemetry.io/otel/sdk v1.19.0 // indirect
 	golang.org/x/mod v0.13.0 // indirect
 	golang.org/x/sync v0.4.0 // indirect
-	golang.org/x/sys v0.15.0 // indirect
-	golang.org/x/term v0.15.0 // indirect
+	golang.org/x/sys v0.18.0 // indirect
+	golang.org/x/term v0.18.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/tools v0.14.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20230724170836-66ad5b6ff146 // indirect
