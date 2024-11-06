@@ -3,7 +3,7 @@ module emojis
 go 1.21
 
 require (
-	github.com/ServiceWeaver/weaver v0.24.4
+	github.com/ServiceWeaver/weaver v0.24.6
 	github.com/google/go-cmp v0.5.9
 	github.com/rivo/uniseg v0.4.4
 	github.com/sashabaranov/go-openai v1.14.1
