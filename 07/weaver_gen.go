@@ -362,7 +362,7 @@ func (s searcher_client_stub) Search(ctx context.Context, a0 string) (r0 []strin
 // you run "go build" or "go run".
 var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
-ERROR: You generated this file with 'weaver generate' v0.24.4 (codegen
+ERROR: You generated this file with 'weaver generate' v0.24.6 (codegen
 version v0.24.0). The generated code is incompatible with the version of the
 github.com/ServiceWeaver/weaver module that you're using. The weaver module
 version can be found in your go.mod file or by running the following command.
